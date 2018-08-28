@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>location-icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="location-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-32" fill-rule="nonzero">
+            <rect id="Rectangle-23-Copy" x="0" y="0" width="14" height="14"></rect>
+            <g id="Group-31" transform="translate(3.000000, 1.300000)">
+                <path d="M4,10.8745432 C6.66666667,7.98456729 8,5.82632783 8,4.39982488 C8,2.26007045 6.209139,0.525456751 4,0.525456751 C1.790861,0.525456751 0,2.26007045 0,4.39982488 C0,5.82632783 1.33333333,7.98456729 4,10.8745432 Z" id="Oval-5" stroke="#BABEC0" stroke-width="1.3" stroke-linejoin="round"></path>
+                <circle id="Oval-6" fill="#BABEC0" cx="4" cy="4.3" r="1"></circle>
+            </g>
+        </g>
+    </g>
+</svg>
