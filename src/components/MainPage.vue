@@ -4,11 +4,11 @@
     <p>Destination / Location</p>
     <div class="input-wrapper">
       <img class="loaction-icon" src="../assets/location-icon.svg" alt="location">
-      <input class="search-input" type="text">
+      <input class="search-input" id="pac-input" type="text">
     </div>
     <div class="button-wrapper">
-      <button>Optimal Way Search</button>
-      <button>Facilities Nearby</button>
+      <button @click="getOptimalWay()">Optimal Way Search</button>
+      <button @click="$router.push('/map')">Facilities Nearby</button>
     </div>
     <div class="option-wrapper">
       <div class="option-item">
@@ -36,11 +36,57 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
+const { google } = window
+
 export default {
   name: 'MainPage',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  mounted () {
+    this.initAutoComplete()
+  },
+  methods: {
+    ...mapActions('location', {
+      setLat: 'SET_LAT',
+      setLng: 'SET_LNG'
+    }),
+    initAutoComplete () {
+      const input = document.getElementById('pac-input')
+      const autocomplete = new google.maps.places.Autocomplete(input);
+      console.log(this.$store)
+
+      autocomplete.setFields(['address_components', 'geometry', 'icon', 'name'])
+
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace()
+        console.log(place)
+        if (!place.geometry) {
+          // User entered the name of a Place that was not suggested and
+          // pressed the Enter key, or the Place Details request failed.
+          window.alert("No details available for input: '" + place.name + "'")
+          return
+        }
+
+        const { location } = place.geometry
+        this.setLat(location.lat())
+        this.setLng(location.lng())
+        this.$router.push('/map')
+        // console.log(location.lat())
+        // console.log(location.lng())
+
+        // If the place has a geometry, then present it on a map.
+        let address = ''
+        if (place.address_components) {
+          address = [
+            (place.address_components[0] && place.address_components[0].short_name || ''),
+            (place.address_components[1] && place.address_components[1].short_name || ''),
+            (place.address_components[2] && place.address_components[2].short_name || '')
+          ].join(' ')
+        }
+      })
+    },
+    getOptimalWay () {
+      alert('Coming soon!')
     }
   }
 }
