@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="spinner-container" v-if="isLoading">
+      <spinner></spinner>
+    </div>
     <div>
       <button class="back-button" @click="$router.go(-1)">Back</button>
     </div>
@@ -9,19 +12,33 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Spinner from 'vue-simple-spinner'
+
 import api from '@/api'
 
 const { H } = window
 
 export default {
+  name: 'Map',
+  components: {
+    Spinner
+  },
   data () {
     return {
       map: null,
       isNear: true,
+      isLoading: false,
       isCurrentLocationSearch: false,
       isPositionError: false,
-      latRadius: 0.04,
-      lngRadius: 0.04,
+      latRadius: 0.03,
+      lngRadius: 0.03,
+      ui: null,
+      selectedBubble: null,
+      currentZoom: 14,
+      centerMarker: null,
+      group: null,
+      clusteringLayer: null,
+      clusterRadius: 0.2,
       coords: {
         lat: 37,
         lng: 127
@@ -38,12 +55,22 @@ export default {
     })
   },
   methods: {
+    setPosition (lat, lng, mode) {
+      if (!this.centerMarker) {
+        this.centerMarker = new H.map.Marker({lat, lng})
+        this.map.addObject(this.centerMarker)
+      } else {
+        this.centerMarker.setPosition({lat, lng})
+      }
+      this.map.setCenter({ lat, lng })
+      this.getToilet(lat, mode)
+    },
     initMap () {
       const platform = new H.service.Platform({
-        // app_id: '9cF8npu6Ni7Iu3RuF1a3',
-        // app_code: 'KsOrtYXB6gfyYH2hzax9tA',
-        app_id: 'eJBbvmVzCel4EqtBmISb',
-        app_code: 'CvN3VyRHj5orQg2-DtvDEg',
+        app_id: '9cF8npu6Ni7Iu3RuF1a3',
+        app_code: 'KsOrtYXB6gfyYH2hzax9tA',
+        // app_id: 'eJBbvmVzCel4EqtBmISb',
+        // app_code: 'CvN3VyRHj5orQg2-DtvDEg',
         useHTTPS: true
       })
       const defaultLayers = platform.createDefaultLayers()
@@ -51,7 +78,7 @@ export default {
         document.getElementById('mapContainer'),
         defaultLayers.normal.map,
         {
-          zoom: 14,
+          zoom: this.currentZoom,
           center: {
             lat: this.coords.lat,
             lng: this.coords.lng
@@ -59,17 +86,33 @@ export default {
         }
       )
       const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map))
-      const ui = H.ui.UI.createDefault(this.map, defaultLayers)
+      this.ui = H.ui.UI.createDefault(this.map, defaultLayers)
 
       const { savedLat, savedLng } = this
 
+      this.map.addEventListener('mapviewchangeend', () => {
+        this.handleMapViewChange()
+      })
+
       if (savedLat && savedLng) {
         this.isCurrentLocationSearch = true
-        this.map.setCenter({ lat: savedLat, lng: savedLng })
-        this.getToilet(savedLat)
+        this.setPosition(savedLat, savedLng)
       } else {
         this.getCurrentPosition()
       }
+    },
+    handleMapViewChange () {
+      const center = this.map.getCenter()
+      const zoom = this.map.getZoom()
+      const { lat, lng } = center
+      if (this.currentZoom !== zoom) {
+        this.currentZoom = zoom
+      }
+      if (zoom < 14) {
+        this.setPosition(lat, lng, 'cluster')
+        return
+      }
+      this.setPosition(lat, lng)
     },
     getCurrentPosition () {
       if (this.isNear) {
@@ -80,8 +123,7 @@ export default {
               lat: coords.latitude,
               lng: coords.longitude
             }
-            this.map.setCenter(this.coords)
-            this.getToilet(this.coords.lat)
+            this.setPosition(this.coords.lat, this.coords.lng)
           }, (err) => {
             this.isPositionError = true
             switch (err.code) {
@@ -102,26 +144,69 @@ export default {
       } else {
       }
     },
+    removeGroup () {
+      if (this.group) {
+        this.map.removeObject(this.group)
+        this.group = null
+      }
+    },
     addMarkersToMap (map, data) {
-      const dataPoints = []
-      // console.log(Object.keys(data).length)
+      if (this.group) {
+        this.removeGroup()
+      }
+      this.group = new H.map.Group()
+      map.addObject(this.group)
+
       Object.keys(data).forEach((index) => {
-        const { lat, lng, child_toilet } = data[index]
+        const toilet = data[index]
+        const { lat, lng, child_toilet } = toilet
         if (!(lat && lng) || this.isLngOutOfBounds(lng)) {
           return
         }
 
-        // const marker = new H.map.Marker({lat, lng})
         const markerStyle = this.getMarkerStyle(child_toilet)
         const icon = new H.map.Icon(markerStyle)
         const marker = new H.map.Marker({lat, lng}, {icon})
+        marker.setData(this.setBubbleContent(toilet))
 
-        map.addObject(marker)
+        this.group.addObject(marker)
+
+        marker.addEventListener('tap', (evt) => {
+          // event target is the marker itself, group is a parent event target
+          // for all objects that it contains
+          const bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
+            // read custom data
+            content: evt.target.getData()
+          })
+          // show info bubble
+          const { selectedBubble } = this
+          if (selectedBubble) {
+            this.ui.removeBubble(selectedBubble)
+          }
+          this.selectedBubble = bubble
+          this.ui.addBubble(bubble)
+        }, false)
+
       })
     },
+    setBubbleContent (toilet) {
+      const {
+        addr,
+        child_toilet,
+        name,
+        open,
+        update_dt
+      } = toilet
+      const content = `
+        Name: ${name}
+        Address: ${addr}
+        Open: ${open}
+        Child Toilet: ${child_toilet ? 'Y' : 'N'}
+        Updated Date: ${update_dt}
+      `
+      return content
+    },
     getMarkerStyle (isChildToilet) {
-      // const fill = isChildToilet ? 'red' : 'blue'
-      // const stroke = isChildToilet ? 'red' : 'blue'
       const color = isChildToilet ? 'blue' : '#A0D8F1'
       const stroke = 'white'
 
@@ -132,53 +217,83 @@ export default {
       `
       return svgMarkup
     },
+    removeClusteringLayer () {
+      if (this.clusteringLayer) {
+        this.map.removeLayer(this.clusteringLayer)
+        this.clusteringLayer = null
+      }
+    },
     startClustering (map, data) {
-      // First we need to create an array of DataPoint objects,
-      // for the ClusterProvider
+      this.removeClusteringLayer()
       const dataPoints = []
-      // console.log(Object.keys(data).length)
       Object.keys(data).forEach((index) => {
         const { lat, lng } = data[index]
-        if (!(lat && lng) || this.isLngOutOfBounds(lng)) {
+        if (!(lat && lng) || this.isLngOutOfBounds(lng, 'cluster')) {
           return
         }
         dataPoints.push(new H.clustering.DataPoint(lat, lng))
       })
 
-      // Create a clustering provider with custom options for clusterizing the input
-      var clusteredDataProvider = new H.clustering.Provider(dataPoints, {
+      const clusteredDataProvider = new H.clustering.Provider(dataPoints, {
         clusteringOptions: {
           // Maximum radius of the neighbourhood
-          eps: 20,
+          eps: 100,
           // minimum weight of points required to form a cluster
-          minWeight: 10
+          minWeight: 4
         }
       })
 
-      // Create a layer tha will consume objects from our clustering provider
-      const clusteringLayer = new H.map.layer.ObjectLayer(clusteredDataProvider)
+      this.clusteringLayer = new H.map.layer.ObjectLayer(clusteredDataProvider)
 
-      // To make objects from clustering provder visible,
-      // we need to add our layer to the map
-      this.map.addLayer(clusteringLayer)
+      this.map.addLayer(this.clusteringLayer)
     },
-    isLngOutOfBounds (lng) {
-      const centerLng = this.isCurrentLocationSearch ? this.savedLng : this.coords.lng
-      return lng < centerLng - this.lngRadius || lng > centerLng + this.lngRadius
+    isLngOutOfBounds (lng, mode) {
+      const centerLng = this.map.getCenter().lng
+      const lngRadius = mode === 'cluster' ? this.clusterRadius : this.lngRadius
+      return lng < centerLng - lngRadius || lng > centerLng + lngRadius
     },
-    getToilet (lat) {
-      const minLat = lat - this.latRadius
-      const maxLat = lat + this.latRadius
+    getToilet (lat, mode) {
+      this.isLoading = true
+      const latRadius = mode === 'cluster' ? this.clusterRadius : this.latRadius
+      const maxLat = lat + latRadius
+      const minLat = lat - latRadius
       api('getToilets', minLat, maxLat).then((res) => {
-        // this.startClustering(this.map, res)
-        this.addMarkersToMap(this.map, res)
+        if (mode === 'cluster') {
+          this.removeGroup()
+          this.startClustering(this.map, res)
+        } else {
+          this.removeClusteringLayer()
+          this.addMarkersToMap(this.map, res)
+        }
+        this.isLoading = false
       })
     }
   }
 }
 </script>
 
+<style lang="scss">
+.H_ib_body {
+  background-color: #fff;
+  width: 140px;
+  padding: 0;
+  .H_ib_close {
+    background-color: rgba($color: #000000, $alpha: 0.1);
+  }
+  .H_ib_content {
+    padding-top: 20px;
+    color: #000;
+    font-size: 10px;
+  }
+}
+</style>
 <style lang="scss" scoped>
+.spinner-container {
+  position: absolute;
+  z-index: 9;
+  left: 48%;
+  top: 48%;
+}
 .back-button {
   position: absolute;
   background-color: aqua;
