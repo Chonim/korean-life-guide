@@ -1,7 +1,6 @@
 <template>
   <div class="main-page">
     <h1><span class="title-1">Travel </span><span class="title-2">With </span><span class="title-3">kids</span></h1>
-    
     <p>Destination / Location</p>
     <div class="input-wrapper">
       <img class="loaction-icon" src="../assets/location-icon.svg" alt="location">
@@ -84,7 +83,6 @@ p {
 .option-item {
   margin-bottom: 10px;
   margin-left: 10px;
- 
 }
 label {
   font-weight: 400;
