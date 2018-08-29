@@ -53,7 +53,6 @@ export default {
     initAutoComplete () {
       const input = document.getElementById('pac-input')
       const autocomplete = new google.maps.places.Autocomplete(input);
-      console.log(this.$store)
 
       autocomplete.setFields(['address_components', 'geometry', 'icon', 'name'])
 
@@ -71,8 +70,6 @@ export default {
         this.setLat(location.lat())
         this.setLng(location.lng())
         this.$router.push('/map')
-        // console.log(location.lat())
-        // console.log(location.lng())
 
         // If the place has a geometry, then present it on a map.
         let address = ''
