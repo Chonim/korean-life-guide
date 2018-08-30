@@ -8,7 +8,7 @@
     </div>
     <div class="button-wrapper">
       <button @click="getOptimalWay()">Optimal Way Search</button>
-      <button @click="$router.push('/map')">Facilities Nearby</button>
+      <button @click="openNearbySearch()">Facilities Nearby</button>
     </div>
     <div class="option-wrapper">
       <div class="option-item">
@@ -42,6 +42,11 @@ const { google } = window
 
 export default {
   name: 'MainPage',
+  data () {
+    return {
+      isNearbySearch: false,
+    }
+  },
   mounted () {
     this.initAutoComplete()
   },
@@ -52,6 +57,11 @@ export default {
       setIsToiletChecked: 'SET_IS_TOILET_CHECKED',
       setIsErChecked: 'SET_IS_ER_CHECKED',
     }),
+    openNearbySearch () {
+      this.setLat(0)
+      this.setLng(0)
+      this.$router.push('/map')
+    },
     initAutoComplete () {
       const input = document.getElementById('pac-input')
       const autocomplete = new google.maps.places.Autocomplete(input);

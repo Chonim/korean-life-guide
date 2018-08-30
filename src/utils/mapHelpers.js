@@ -37,9 +37,6 @@ const setErBubbleContent = (er) => {
   return content
 }
 
-const getSvg = () =>
-  import('@/assets/icons/icon-05.svg')
-
 const getMarkerStyle = (colorType) => {
   const {
     childToilet,
