@@ -1,6 +1,6 @@
 # Travel With Kids
 
-> The untimate web application you need when you travel with your kids
+> The ultimate web application you need when you travel with your kids
 
 ## URL
 [https://travel-with-kids.firebaseapp.com/](https://travel-with-kids.firebaseapp.com/)
@@ -40,5 +40,3 @@ npm install
 
 # serve with hot reload at localhost:9090
 npm run dev
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
