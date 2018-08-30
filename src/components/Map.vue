@@ -5,7 +5,7 @@
     </div>
     <map-header :currentPosition="currentPosition"></map-header>
     <div id="mapContainer" class="map-container"></div>
-    <warning-message v-show="!IsOptimalWaySearch && currentZoom < 14"></warning-message>
+    <warning-message v-show="!IsOptimalWaySearch && currentZoom < markerVisibleZoom"></warning-message>
   </div>
 </template>
 
@@ -34,13 +34,13 @@ export default {
       map: null,
       isNear: true,
       isLoading: false,
-      isCurrentLocationSearch: false,
       isPositionError: false,
-      latRadius: 0.03,
-      lngRadius: 0.03,
+      latRadius: 0.02,
+      lngRadius: 0.02,
       ui: null,
       selectedBubble: null,
       currentZoom: 6,
+      markerVisibleZoom: 15,
       centerMarker: null,
       group: null,
       clusteringLayer: null,
@@ -88,7 +88,7 @@ export default {
       this.getLocations(lat, mode)
     },
     geocodeLatLng (latLng) {
-      const geocoder = new google.maps.Geocoder
+      const geocoder = new google.maps.Geocoder()
       let address = ''
       geocoder.geocode({location: latLng}, (results, status) => {
         if (status === 'OK') {
@@ -136,7 +136,6 @@ export default {
       }
 
       if (savedLat && savedLng) {
-        this.isCurrentLocationSearch = true
         this.setZoom()
         this.setPosition(savedLat, savedLng)
       } else {
@@ -144,7 +143,7 @@ export default {
       }
     },
     setZoom () {
-      this.currentZoom = 14
+      this.currentZoom = this.markerVisibleZoom
       this.map.setZoom(this.currentZoom)
     },
     handleMapViewChange () {
@@ -154,7 +153,7 @@ export default {
       if (this.currentZoom !== zoom) {
         this.currentZoom = zoom
       }
-      if (zoom < 14) {
+      if (zoom < this.markerVisibleZoom) {
         this.setPosition(lat, lng, 'cluster')
         return
       }
@@ -175,11 +174,11 @@ export default {
             this.isPositionError = true
             switch (err.code) {
               case err.PERMISSION_DENIED:
-                this.geolocationErrorMessage = 'Please allow geolocation permission, and refresh this webpage'
+                alert('Please allow geolocation permission and refresh this webpage')
                 break
               case err.POSITION_UNAVAILABLE:
               case err.TIMEOUT:
-                this.geolocationErrorMessage = 'Position unavailable, please check your device setting.'
+                alert('Position unavailable. please check your device setting.')
                 break
               default:
                 break
@@ -239,7 +238,7 @@ export default {
         marker.addEventListener('tap', (evt) => {
           // event target is the marker itself, group is a parent event target
           // for all objects that it contains
-          const bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
+          const bubble = new H.ui.InfoBubble(evt.target.getPosition(), {
             // read custom data
             content: evt.target.getData()
           })
@@ -251,7 +250,6 @@ export default {
           this.selectedBubble = bubble
           this.ui.addBubble(bubble)
         }, false)
-
       })
     },
     removeClusteringLayer () {
@@ -333,10 +331,10 @@ export default {
             萬隆站 Elevator :<br>
             Out of service (as of 31 Aug 2018)
           `
-        },
+        }
       ]
       bubbleArray.forEach((el) => {
-        const bubble =  new H.ui.InfoBubble(el.point, {
+        const bubble = new H.ui.InfoBubble(el.point, {
           content: el.content
         })
         this.ui.addBubble(bubble)
@@ -403,23 +401,21 @@ export default {
         '<circle cx="8" cy="8" r="8" ' +
           'fill="#1b468d" stroke="white" stroke-width="1"  />' +
         '</svg>'
-      const dotIcon = new H.map.Icon(svgMarkup, {anchor: {x:8, y:8}})
-      const group = new  H.map.Group()
+      const dotIcon = new H.map.Icon(svgMarkup, {anchor: { x: 8, y: 8 }})
+      const group = new H.map.Group()
 
       // Add a marker for each maneuver
-      for (let i = 0;  i < route.leg.length; i += 1) {
-        for (let j = 0;  j < route.leg[i].maneuver.length; j += 1) {
+      for (let i = 0; i < route.leg.length; i += 1) {
+        for (let j = 0; j < route.leg[i].maneuver.length; j += 1) {
           // Get the next maneuver.
           const maneuver = route.leg[i].maneuver[j]
           // Add a marker to the maneuvers group
-          const marker =  new H.map.Marker({
-              lat: maneuver.position.latitude,
-              lng: maneuver.position.longitude
-            },
-            {
-              icon: dotIcon
-            }
-          )
+          const marker = new H.map.Marker({
+            lat: maneuver.position.latitude,
+            lng: maneuver.position.longitude
+          }, {
+            icon: dotIcon
+          })
           marker.instruction = maneuver.instruction
           group.addObject(marker)
         }
@@ -428,8 +424,8 @@ export default {
       const { map } = this
       let bubble = null
       const openBubble = (position, text) => {
-        if(!bubble){
-          bubble =  new H.ui.InfoBubble(
+        if (!bubble) {
+          bubble = new H.ui.InfoBubble(
             position,
             // The FO property holds the province name.
             {content: text})
@@ -498,6 +494,7 @@ export default {
   .map-container {
     width: 100%;
     height: calc(100% - 70px);
+    min-height: 480px;
   }
 }
 </style>
