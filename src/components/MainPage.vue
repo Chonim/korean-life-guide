@@ -12,22 +12,22 @@
     </div>
     <div class="option-wrapper">
       <div class="option-item">
-        <input type="checkbox" id="KidsToilet" name="feature"
+        <input type="checkbox" id="KidsToilet" name="feature" ref="kidsToilet"
                value="KidsToilet" checked />
         <label for="KidsToilet">Kids Toilet</label>
       </div>
       <div class="option-item">
-        <input type="checkbox" id="ChildcareRoom" name="feature"
+        <input type="checkbox" id="ChildcareRoom" name="feature" ref="childcareRoom"
                value="ChildcareRoom" checked />
         <label for="ChildcareRoom">Childcare Room</label>
       </div>
       <div class="option-item">
-        <input type="checkbox" id="Stroller" name="feature"
+        <input type="checkbox" id="Stroller" name="feature" ref="stroller"
                value="Stroller" checked />
         <label for="Stroller">Stroller (Barrier-free)</label>
       </div>
       <div class="option-item">
-        <input type="checkbox" id="EmergencyRoom" name="feature"
+        <input type="checkbox" id="EmergencyRoom" name="feature" ref="emergencyRoom"
                value="EmergencyRoom" checked />
         <label for="EmergencyRoom">Emergency Room (Pediatric Doctor)</label>
       </div>
@@ -48,7 +48,9 @@ export default {
   methods: {
     ...mapActions('location', {
       setLat: 'SET_LAT',
-      setLng: 'SET_LNG'
+      setLng: 'SET_LNG',
+      setIsToiletChecked: 'SET_IS_TOILET_CHECKED',
+      setIsErChecked: 'SET_IS_ER_CHECKED',
     }),
     initAutoComplete () {
       const input = document.getElementById('pac-input')
@@ -58,7 +60,6 @@ export default {
 
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace()
-        console.log(place)
         if (!place.geometry) {
           // User entered the name of a Place that was not suggested and
           // pressed the Enter key, or the Place Details request failed.
@@ -85,7 +86,19 @@ export default {
     getOptimalWay () {
       alert('Coming soon!')
     }
-  }
+  },
+  beforeDestroy () {
+    const {
+      kidsToilet,
+      childcareRoom,
+      stroller,
+      emergencyRoom
+    } = this.$refs
+    const isToiletChecked = [kidsToilet, childcareRoom, stroller].some(toilet => toilet.checked)
+    const isErChecked = emergencyRoom.checked
+    this.setIsToiletChecked(isToiletChecked)
+    this.setIsErChecked(isErChecked)
+  },
 }
 </script>
 

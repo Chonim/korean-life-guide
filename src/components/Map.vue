@@ -1,12 +1,11 @@
 <template>
-  <div>
+  <div class="map-wrapper">
     <div class="spinner-container" v-if="isLoading">
       <spinner></spinner>
     </div>
-    <div>
-      <button class="back-button" @click="$router.go(-1)">Back</button>
-    </div>
+    <map-header :currentPosition="currentPosition"></map-header>
     <div id="mapContainer" class="map-container"></div>
+    <warning-message v-show="currentZoom < 14"></warning-message>
   </div>
 </template>
 
@@ -15,13 +14,20 @@ import { mapGetters } from 'vuex'
 import Spinner from 'vue-simple-spinner'
 
 import api from '@/api'
+import config from '@/config'
+import mapHelpers from '@/utils/mapHelpers'
 
-const { H } = window
+import MapHeader from './Header'
+import WarningMessage from './WarningMessage'
+
+const { H, google } = window
 
 export default {
   name: 'Map',
   components: {
-    Spinner
+    Spinner,
+    MapHeader,
+    WarningMessage
   },
   data () {
     return {
@@ -34,11 +40,13 @@ export default {
       lngRadius: 0.03,
       ui: null,
       selectedBubble: null,
-      currentZoom: 14,
+      currentZoom: 6,
       centerMarker: null,
       group: null,
       clusteringLayer: null,
       clusterRadius: 0.2,
+      points: {},
+      currentPosition: '',
       coords: {
         lat: 37,
         lng: 127
@@ -51,26 +59,44 @@ export default {
   computed: {
     ...mapGetters('location', {
       savedLat: 'LAT',
-      savedLng: 'LNG'
+      savedLng: 'LNG',
+      isToiletChecked: 'IS_TOILET_CHECKED',
+      isErChecked: 'IS_ER_CHECKED'
     })
   },
   methods: {
     setPosition (lat, lng, mode) {
+      const latLng = {lat, lng}
       if (!this.centerMarker) {
-        this.centerMarker = new H.map.Marker({lat, lng})
+        this.centerMarker = new H.map.Marker(latLng)
         this.map.addObject(this.centerMarker)
       } else {
-        this.centerMarker.setPosition({lat, lng})
+        this.centerMarker.setPosition(latLng)
       }
-      this.map.setCenter({ lat, lng })
-      this.getToilet(lat, mode)
+      this.map.setCenter(latLng)
+      this.geocodeLatLng(latLng)
+      this.getLocations(lat, mode)
+    },
+    geocodeLatLng (latLng) {
+      const geocoder = new google.maps.Geocoder
+      let address = ''
+      geocoder.geocode({location: latLng}, (results, status) => {
+        if (status === 'OK') {
+          const result = results[0]
+          if (result) {
+            this.currentPosition = results[0].formatted_address
+          } else {
+            this.currentPosition = 'Unknown location'
+          }
+        } else {
+          this.currentPosition = 'Failed to get address'
+        }
+      })
     },
     initMap () {
       const platform = new H.service.Platform({
-        app_id: '9cF8npu6Ni7Iu3RuF1a3',
-        app_code: 'KsOrtYXB6gfyYH2hzax9tA',
-        // app_id: 'eJBbvmVzCel4EqtBmISb',
-        // app_code: 'CvN3VyRHj5orQg2-DtvDEg',
+        app_id: config.HERE_ID,
+        app_code: config.HERE_CODE,
         useHTTPS: true
       })
       const defaultLayers = platform.createDefaultLayers()
@@ -96,10 +122,15 @@ export default {
 
       if (savedLat && savedLng) {
         this.isCurrentLocationSearch = true
+        this.setZoom()
         this.setPosition(savedLat, savedLng)
       } else {
         this.getCurrentPosition()
       }
+    },
+    setZoom () {
+      this.currentZoom = 14
+      this.map.setZoom(this.currentZoom)
     },
     handleMapViewChange () {
       const center = this.map.getCenter()
@@ -123,6 +154,7 @@ export default {
               lat: coords.latitude,
               lng: coords.longitude
             }
+            this.setZoom()
             this.setPosition(this.coords.lat, this.coords.lng)
           }, (err) => {
             this.isPositionError = true
@@ -158,16 +190,34 @@ export default {
       map.addObject(this.group)
 
       Object.keys(data).forEach((index) => {
-        const toilet = data[index]
-        const { lat, lng, child_toilet } = toilet
+        const location = data[index]
+        const { lat, lng, childCare } = location
+        const childToilet = location.child_toilet
         if (!(lat && lng) || this.isLngOutOfBounds(lng)) {
           return
         }
 
-        const markerStyle = this.getMarkerStyle(child_toilet)
+        let colorType = ''
+        if (childToilet !== undefined) {
+          if (childToilet) {
+            colorType = 'toiletY'
+          } else {
+            colorType = 'toiletN'
+          }
+        } else {
+          if (childCare) {
+            colorType = 'childCareY'
+          } else {
+            colorType = 'childCareN'
+          }
+        }
+
+        const markerStyle = mapHelpers.getMarkerStyle(colorType)
         const icon = new H.map.Icon(markerStyle)
         const marker = new H.map.Marker({lat, lng}, {icon})
-        marker.setData(this.setBubbleContent(toilet))
+        const isToilet = colorType.includes('toilet')
+        const bubbleContent = isToilet ? mapHelpers.setToiletBubbleContent(location) : mapHelpers.setErBubbleContent(location)
+        marker.setData(bubbleContent)
 
         this.group.addObject(marker)
 
@@ -188,34 +238,6 @@ export default {
         }, false)
 
       })
-    },
-    setBubbleContent (toilet) {
-      const {
-        addr,
-        child_toilet,
-        name,
-        open,
-        update_dt
-      } = toilet
-      const content = `
-        Name: ${name}
-        Address: ${addr}
-        Open: ${open}
-        Child Toilet: ${child_toilet ? 'Y' : 'N'}
-        Updated Date: ${update_dt}
-      `
-      return content
-    },
-    getMarkerStyle (isChildToilet) {
-      const color = isChildToilet ? 'blue' : '#A0D8F1'
-      const stroke = 'white'
-
-      const svgMarkup = `<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-        <rect stroke="${color}" fill="${color}" x="0.1" y="0.1" width="22" height="22" />
-        <text x="12" y="18" font-size="12pt" font-family="Arial" font-weight="bold" 
-        text-anchor="middle" fill="${stroke}" >T</text></svg>
-      `
-      return svgMarkup
     },
     removeClusteringLayer () {
       if (this.clusteringLayer) {
@@ -252,21 +274,48 @@ export default {
       const lngRadius = mode === 'cluster' ? this.clusterRadius : this.lngRadius
       return lng < centerLng - lngRadius || lng > centerLng + lngRadius
     },
-    getToilet (lat, mode) {
+    getToilets (minLat, maxLat, mode) {
+      api('getToilets', minLat, maxLat).then((res) => {
+        this.concatPoints(res)
+        if (!this.isErChecked) {
+          this.getLocationsCallback(mode)
+        } else {
+          this.getErs(minLat, maxLat, mode)
+        }
+      })
+    },
+    getErs (minLat, maxLat, mode) {
+      api('getEmergencyRooms', minLat, maxLat).then((res) => {
+        this.concatPoints(res)
+        this.getLocationsCallback(mode)
+      })
+    },
+    concatPoints (res) {
+      this.points = Object.assign(this.points, res)
+    },
+    getLocationsCallback (mode) {
+      if (mode === 'cluster') {
+        this.removeGroup()
+        this.startClustering(this.map, this.points)
+      } else {
+        this.removeClusteringLayer()
+        this.addMarkersToMap(this.map, this.points)
+      }
+      this.isLoading = false
+    },
+    getLocations (lat, mode) {
       this.isLoading = true
       const latRadius = mode === 'cluster' ? this.clusterRadius : this.latRadius
       const maxLat = lat + latRadius
       const minLat = lat - latRadius
-      api('getToilets', minLat, maxLat).then((res) => {
-        if (mode === 'cluster') {
-          this.removeGroup()
-          this.startClustering(this.map, res)
-        } else {
-          this.removeClusteringLayer()
-          this.addMarkersToMap(this.map, res)
-        }
-        this.isLoading = false
-      })
+      this.points = {}
+      if (this.isToiletChecked) {
+        this.getToilets(minLat, maxLat, mode)
+        return
+      }
+      if (this.isErChecked) {
+        this.getErs(minLat, maxLat, mode)
+      }
     }
   }
 }
@@ -288,23 +337,17 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
-.spinner-container {
-  position: absolute;
-  z-index: 9;
-  left: 48%;
-  top: 48%;
-}
-.back-button {
-  position: absolute;
-  background-color: aqua;
-  z-index: 999;
-  top: 10px;
-  left: 10px;
-  width: 50px;
-  height: 20px;
-}
-.map-container {
-  width: 100%;
-  height: 640px;
+.map-wrapper {
+  height: 100%;
+  .spinner-container {
+    position: absolute;
+    z-index: 9;
+    left: 48%;
+    top: 58%;
+  }
+  .map-container {
+    width: 100%;
+    height: calc(100% - 70px);
+  }
 }
 </style>
