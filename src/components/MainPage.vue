@@ -17,19 +17,19 @@
         <label for="KidsToilet">Kids Toilet</label>
       </div>
       <div class="option-item">
-        <input type="checkbox" id="ChildcareRoom" name="feature" ref="childcareRoom"
-               value="ChildcareRoom" checked />
-        <label for="ChildcareRoom">Childcare Room</label>
-      </div>
-      <div class="option-item">
-        <input type="checkbox" id="Stroller" name="feature" ref="stroller"
-               value="Stroller" checked />
-        <label for="Stroller">Stroller (Barrier-free)</label>
-      </div>
-      <div class="option-item">
         <input type="checkbox" id="EmergencyRoom" name="feature" ref="emergencyRoom"
                value="EmergencyRoom" checked />
         <label for="EmergencyRoom">Emergency Room (Pediatric Doctor)</label>
+      </div>
+      <div class="option-item">
+        <input type="checkbox" id="ChildcareRoom" name="feature" ref="childcareRoom"
+               value="ChildcareRoom" disabled />
+        <label for="ChildcareRoom" class="disabled-text">Childcare Room<span class="coming-soon">Coming soon</span></label>
+      </div>
+      <div class="option-item">
+        <input type="checkbox" id="Stroller" name="feature" ref="stroller"
+               value="Stroller" disabled />
+        <label for="Stroller" class="disabled-text">Stroller (Barrier-free)<span class="coming-soon">Coming soon</span></label>
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@ export default {
       stroller,
       emergencyRoom
     } = this.$refs
-    const isToiletChecked = [kidsToilet, childcareRoom, stroller].some(toilet => toilet.checked)
+    const isToiletChecked = kidsToilet.checked
     const isErChecked = emergencyRoom.checked
     this.setIsToiletChecked(isToiletChecked)
     this.setIsErChecked(isErChecked)
@@ -103,7 +103,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 .main-page {
   padding: 50px 12px 0 12px;
 }
@@ -139,6 +139,14 @@ p {
 .option-item {
   margin-bottom: 10px;
   margin-left: 10px;
+  .disabled-text {
+    color: grey;
+    .coming-soon {
+      color: #ffaa22;
+      margin-left: 10px;
+      font-size: 14px;
+    }
+  }
 }
 label {
   font-weight: 400;
