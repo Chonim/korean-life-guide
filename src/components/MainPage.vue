@@ -42,11 +42,6 @@ const { google } = window
 
 export default {
   name: 'MainPage',
-  data () {
-    return {
-      isNearbySearch: false,
-    }
-  },
   mounted () {
     this.initAutoComplete()
   },
@@ -56,11 +51,11 @@ export default {
       setLng: 'SET_LNG',
       setIsOptimalWaySearch: 'SET_IS_OPTIMAL_WAY_SEARCH',
       setIsToiletChecked: 'SET_IS_TOILET_CHECKED',
-      setIsErChecked: 'SET_IS_ER_CHECKED',
+      setIsErChecked: 'SET_IS_ER_CHECKED'
     }),
     initAutoComplete () {
       const input = document.getElementById('pac-input')
-      const autocomplete = new google.maps.places.Autocomplete(input);
+      const autocomplete = new google.maps.places.Autocomplete(input)
 
       autocomplete.setFields(['address_components', 'geometry', 'icon', 'name'])
       autocomplete.addListener('place_changed', () => {
@@ -74,16 +69,6 @@ export default {
 
         const { location } = place.geometry
         this.openPlaceSearch(location)
-
-        // If the place has a geometry, then present it on a map.
-        let address = ''
-        if (place.address_components) {
-          address = [
-            (place.address_components[0] && place.address_components[0].short_name || ''),
-            (place.address_components[1] && place.address_components[1].short_name || ''),
-            (place.address_components[2] && place.address_components[2].short_name || '')
-          ].join(' ')
-        }
       })
     },
     openPlaceSearch (location) {
@@ -95,7 +80,7 @@ export default {
     getOptimalWay () {
       this.goNext(0, 0, true)
     },
-    goNext(lat, lng, isOptimalWaySearch) {
+    goNext (lat, lng, isOptimalWaySearch) {
       this.setLat(lat)
       this.setLng(lng)
       this.setIsOptimalWaySearch(isOptimalWaySearch)

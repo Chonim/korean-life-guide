@@ -19,8 +19,10 @@
 - Vue Router
 - Vuex
 - Axios
+- Firebase
 - Here API
 - Google Maps API
+- Font Awesome
 
 ## Used Open Data
 - Korea public toilets
