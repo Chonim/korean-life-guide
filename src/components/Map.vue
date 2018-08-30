@@ -5,7 +5,7 @@
     </div>
     <map-header :currentPosition="currentPosition"></map-header>
     <div id="mapContainer" class="map-container"></div>
-    <warning-message v-show="currentZoom < 14"></warning-message>
+    <warning-message v-show="!IsOptimalWaySearch && currentZoom < 14"></warning-message>
   </div>
 </template>
 

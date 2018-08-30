@@ -1,21 +1,44 @@
-# travel-with-kids
+# Travel With Kids
 
-> A Vue.js project
+> The untimate web application you need when you travel with your kids
 
-## Build Setup
+## URL
+[https://travel-with-kids.firebaseapp.com/](https://travel-with-kids.firebaseapp.com/)
+
+## Features
+- Public toilets / hospitals (ER) search
+- Kids toilets / pediatric doctor search
+- Nearby search
+- Specific area search
+- Optimal way search with elevator information
+- Place autocomplete
+- Geocoding
+
+## Used Framework & Libraries
+- VueJS
+- Vue Router
+- Vuex
+- Axios
+- Here API
+- Google Maps API
+
+## Used Open Data
+- Korea public toilets
+- Japan public toilets (Kaga-shi)
+- Taiwan public toilets (Taipei)
+- Korea emergency rooms
+- Japan emergency rooms (Taipei)
+- Taiwan emergency rooms (Kaga-shi)
+- Taipei subway elebator location in the station
+- Taipei subway elebator repairment information
+
+## Install & Run
 
 ``` bash
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:9090
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
