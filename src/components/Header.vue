@@ -10,14 +10,14 @@
 </template>
 
 <script>
-  export default {
-    name: 'Header',
-    props: {
-      currentPosition: {
-        type: String
-      }
+export default {
+  name: 'Header',
+  props: {
+    currentPosition: {
+      type: String
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -42,5 +42,3 @@
   }
 }
 </style>
-
-

@@ -32,9 +32,7 @@ export default {
   data () {
     return {
       map: null,
-      isNear: true,
       isLoading: false,
-      isPositionError: false,
       latRadius: 0.02,
       lngRadius: 0.02,
       ui: null,
@@ -126,6 +124,13 @@ export default {
 
       const { savedLat, savedLng } = this
 
+      this.map.addEventListener('mapviewchange', () => {
+        if (!this.centerMarker) {
+          return
+        }
+        this.centerMarker.setPosition(this.map.getCenter())
+      })
+
       this.map.addEventListener('mapviewchangeend', () => {
         this.handleMapViewChange()
       })
@@ -160,34 +165,28 @@ export default {
       this.setPosition(lat, lng)
     },
     getCurrentPosition () {
-      if (this.isNear) {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            const { coords } = position
-            this.coords = {
-              lat: coords.latitude,
-              lng: coords.longitude
-            }
-            this.setZoom()
-            this.setPosition(this.coords.lat, this.coords.lng)
-          }, (err) => {
-            this.isPositionError = true
-            switch (err.code) {
-              case err.PERMISSION_DENIED:
-                alert('Please allow geolocation permission and refresh this webpage')
-                break
-              case err.POSITION_UNAVAILABLE:
-              case err.TIMEOUT:
-                alert('Position unavailable. please check your device setting.')
-                break
-              default:
-                break
-            }
-          })
-        } else {
-          this.geolocationErrorMessage = null
-        }
-      } else {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { coords } = position
+          this.coords = {
+            lat: coords.latitude,
+            lng: coords.longitude
+          }
+          this.setZoom()
+          this.setPosition(this.coords.lat, this.coords.lng)
+        }, (err) => {
+          switch (err.code) {
+            case err.PERMISSION_DENIED:
+              alert('Please allow geolocation permission and refresh this webpage')
+              break
+            case err.POSITION_UNAVAILABLE:
+            case err.TIMEOUT:
+              alert('Position unavailable. please check your device setting.')
+              break
+            default:
+              break
+          }
+        })
       }
     },
     removeGroup () {
@@ -380,7 +379,7 @@ export default {
       let polyline
 
       routeShape.forEach((point) => {
-        var parts = point.split(',')
+        const parts = point.split(',')
         lineString.pushLatLngAlt(parts[0], parts[1])
       })
 
@@ -472,8 +471,10 @@ export default {
   background-color: #fff;
   width: 140px;
   padding: 0;
+  border-radius: 10px;
   .H_ib_close {
     background-color: rgba($color: #000000, $alpha: 0.1);
+    border-radius: 24px;
   }
   .H_ib_content {
     padding-top: 20px;
