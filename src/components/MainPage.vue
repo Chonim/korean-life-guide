@@ -54,20 +54,15 @@ export default {
     ...mapActions('location', {
       setLat: 'SET_LAT',
       setLng: 'SET_LNG',
+      setIsOptimalWaySearch: 'SET_IS_OPTIMAL_WAY_SEARCH',
       setIsToiletChecked: 'SET_IS_TOILET_CHECKED',
       setIsErChecked: 'SET_IS_ER_CHECKED',
     }),
-    openNearbySearch () {
-      this.setLat(0)
-      this.setLng(0)
-      this.$router.push('/map')
-    },
     initAutoComplete () {
       const input = document.getElementById('pac-input')
       const autocomplete = new google.maps.places.Autocomplete(input);
 
       autocomplete.setFields(['address_components', 'geometry', 'icon', 'name'])
-
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace()
         if (!place.geometry) {
@@ -78,9 +73,7 @@ export default {
         }
 
         const { location } = place.geometry
-        this.setLat(location.lat())
-        this.setLng(location.lng())
-        this.$router.push('/map')
+        this.openPlaceSearch(location)
 
         // If the place has a geometry, then present it on a map.
         let address = ''
@@ -93,8 +86,20 @@ export default {
         }
       })
     },
+    openPlaceSearch (location) {
+      this.goNext(location.lat(), location.lng(), false)
+    },
+    openNearbySearch () {
+      this.goNext(0, 0, false)
+    },
     getOptimalWay () {
-      alert('Coming soon!')
+      this.goNext(0, 0, true)
+    },
+    goNext(lat, lng, isOptimalWaySearch) {
+      this.setLat(lat)
+      this.setLng(lng)
+      this.setIsOptimalWaySearch(isOptimalWaySearch)
+      this.$router.push('/map')
     }
   },
   beforeDestroy () {
@@ -108,7 +113,7 @@ export default {
     const isErChecked = emergencyRoom.checked
     this.setIsToiletChecked(isToiletChecked)
     this.setIsErChecked(isErChecked)
-  },
+  }
 }
 </script>
 
@@ -152,7 +157,9 @@ p {
   .disabled-text {
     color: grey;
     .coming-soon {
-      color: #ffaa22;
+      color: #fff;
+      background-color: #ffaa22;
+      padding: 2px 10px;
       margin-left: 10px;
       font-size: 14px;
     }

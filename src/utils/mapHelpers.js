@@ -11,10 +11,10 @@ const setToiletBubbleContent = (toilet) => {
   const updateDt = toilet.update_dt
 
   const content = `
-        Name: ${name}
-        Address: ${addr}
-        Open: ${open}
-        Child Toilet: ${childToilet ? 'Y' : 'N'}
+        Name: ${name} <br>
+        Address: ${addr} <br>
+        Open: ${open} <br>
+        Child Toilet: ${childToilet ? 'Y' : 'N'} <br>
         Updated Date: ${updateDt}
       `
   return content
@@ -29,9 +29,9 @@ const setErBubbleContent = (er) => {
   } = er
 
   const content = `
-        Name: ${name}
-        Address: ${addr}
-        Phone: ${phone}
+        Name: ${name} <br>
+        Address: ${addr} <br>
+        Phone: ${phone} <br>
         Child Treatment: ${childCare ? 'Y' : 'N'}
       `
   return content
