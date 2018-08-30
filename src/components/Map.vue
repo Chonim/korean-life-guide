@@ -50,6 +50,15 @@ export default {
       coords: {
         lat: 37,
         lng: 127
+      },
+      sampleData: {
+        addr: '臺北市中山區中山北路2段92號',
+        childCare: 1,
+        country: 'Taiwan',
+        lat: 24.991262,
+        lng: 121.539893,
+        name: '台灣基督長老?會馬偕醫療財團法人馬偕兒童醫院',
+        phone: '02-25433535'
       }
     }
   },
@@ -60,6 +69,7 @@ export default {
     ...mapGetters('location', {
       savedLat: 'LAT',
       savedLng: 'LNG',
+      IsOptimalWaySearch: 'IS_OPTIMAL_WAY_SEARCH',
       isToiletChecked: 'IS_TOILET_CHECKED',
       isErChecked: 'IS_ER_CHECKED'
     })
@@ -119,6 +129,11 @@ export default {
       this.map.addEventListener('mapviewchangeend', () => {
         this.handleMapViewChange()
       })
+
+      if (this.IsOptimalWaySearch) {
+        this.initRouting(platform)
+        return
+      }
 
       if (savedLat && savedLng) {
         this.isCurrentLocationSearch = true
@@ -303,12 +318,147 @@ export default {
       }
       this.isLoading = false
     },
+    addWarningInfoBubble (startPoint, endPoint) {
+      const bubbleArray = [
+        {
+          point: startPoint,
+          content: `
+            南京三民站 Elevator :<br>
+            Exit 1,2
+          `
+        },
+        {
+          point: endPoint,
+          content: `
+            萬隆站 Elevator :<br>
+            Out of service (as of 31 Aug 2018)
+          `
+        },
+      ]
+      bubbleArray.forEach((el) => {
+        const bubble =  new H.ui.InfoBubble(el.point, {
+          content: el.content
+        })
+        this.ui.addBubble(bubble)
+      })
+    },
+    initRouting (platform) {
+      const router = platform.getRoutingService()
+      const { sampleData } = this
+      const startPoint = {
+        lat: '25.048855',
+        lng: '121.561709'
+      }
+      const routeRequestParams = {
+        // mode: 'shortest;pedestrian',
+        mode: 'fastest;publicTransport',
+        avoidTransportTypes: 'busPublic',
+        representation: 'display',
+        // language: 'zh-tw',
+        waypoint0: `${startPoint.lat},${startPoint.lng}`,
+        waypoint1: `${sampleData.lat},${sampleData.lng}`,
+        routeattributes: 'waypoints,summary,shape,legs',
+        maneuverattributes: 'direction,action'
+      }
+      const onSuccess = (result) => {
+        const route = result.response.route[0]
+        this.addRouteShapeToMap(route)
+        this.addManueversToMap(route)
+        console.log(route)
+      }
+      const onError = (error) => {
+        console.log(error)
+      }
+      this.addWarningInfoBubble(startPoint, sampleData)
+      router.calculateRoute(
+        routeRequestParams,
+        onSuccess,
+        onError
+      )
+    },
+    addRouteShapeToMap (route) {
+      const lineString = new H.geo.LineString()
+      const routeShape = route.shape
+      let polyline
+
+      routeShape.forEach((point) => {
+        var parts = point.split(',')
+        lineString.pushLatLngAlt(parts[0], parts[1])
+      })
+
+      polyline = new H.map.Polyline(lineString, {
+        style: {
+          lineWidth: 4,
+          strokeColor: 'rgba(0, 128, 255, 0.7)'
+        }
+      })
+      // Add the polyline to the map
+      this.map.addObject(polyline)
+      // And zoom to its bounding rectangle
+      this.map.setViewBounds(polyline.getBounds(), true)
+    },
+    addManueversToMap (route) {
+      const svgMarkup = '<svg width="18" height="18" ' +
+        'xmlns="http://www.w3.org/2000/svg">' +
+        '<circle cx="8" cy="8" r="8" ' +
+          'fill="#1b468d" stroke="white" stroke-width="1"  />' +
+        '</svg>'
+      const dotIcon = new H.map.Icon(svgMarkup, {anchor: {x:8, y:8}})
+      const group = new  H.map.Group()
+
+      // Add a marker for each maneuver
+      for (let i = 0;  i < route.leg.length; i += 1) {
+        for (let j = 0;  j < route.leg[i].maneuver.length; j += 1) {
+          // Get the next maneuver.
+          const maneuver = route.leg[i].maneuver[j]
+          // Add a marker to the maneuvers group
+          const marker =  new H.map.Marker({
+              lat: maneuver.position.latitude,
+              lng: maneuver.position.longitude
+            },
+            {
+              icon: dotIcon
+            }
+          )
+          marker.instruction = maneuver.instruction
+          group.addObject(marker)
+        }
+      }
+
+      const { map } = this
+      let bubble = null
+      const openBubble = (position, text) => {
+        if(!bubble){
+          bubble =  new H.ui.InfoBubble(
+            position,
+            // The FO property holds the province name.
+            {content: text})
+          this.ui.addBubble(bubble)
+        } else {
+          bubble.setPosition(position)
+          bubble.setContent(text)
+          bubble.open()
+        }
+      }
+
+      group.addEventListener('tap', (evt) => {
+        map.setCenter(evt.target.getPosition())
+        openBubble(
+          evt.target.getPosition(), evt.target.instruction)
+      }, false)
+
+      // Add the maneuvers group to the map
+      this.map.addObject(group)
+    },
     getLocations (lat, mode) {
-      this.isLoading = true
       const latRadius = mode === 'cluster' ? this.clusterRadius : this.latRadius
       const maxLat = lat + latRadius
       const minLat = lat - latRadius
       this.points = {}
+      if (this.IsOptimalWaySearch) {
+        return
+      }
+      this.isLoading = true
       if (this.isToiletChecked) {
         this.getToilets(minLat, maxLat, mode)
         return
