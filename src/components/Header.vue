@@ -33,8 +33,6 @@
     margin-left: 10px;
     width: 40px;
     height: 20px;
-    i {
-    }
   }
   .current-position {
     align-self: center;

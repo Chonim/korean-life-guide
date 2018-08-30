@@ -213,7 +213,7 @@ export default {
         }
 
         const markerStyle = mapHelpers.getMarkerStyle(colorType)
-        const icon = new H.map.Icon(markerStyle)
+        const icon = new H.map.Icon(markerStyle, {size: {w: 32, h: 32}})
         const marker = new H.map.Marker({lat, lng}, {icon})
         const isToilet = colorType.includes('toilet')
         const bubbleContent = isToilet ? mapHelpers.setToiletBubbleContent(location) : mapHelpers.setErBubbleContent(location)

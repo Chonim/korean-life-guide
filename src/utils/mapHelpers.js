@@ -1,3 +1,5 @@
+import icons from './iconHelpers'
+
 const setToiletBubbleContent = (toilet) => {
   const {
     addr,
@@ -35,43 +37,35 @@ const setErBubbleContent = (er) => {
   return content
 }
 
-const getMarkerStyle = (colorType) => {
-  let color = ''
-  let text = ''
-  // const toilet = '🚽'
-  // const toilet = '🚾'
-  const toilet = '🚻'
-  // const er = '🏥'
-  const er = '+'
+const getSvg = () =>
+  import('@/assets/icons/icon-05.svg')
 
-  const stroke = 'white'
+const getMarkerStyle = (colorType) => {
+  const {
+    childToilet,
+    toilet,
+    childEr,
+    er
+  } = icons
+  let svg = ''
   switch (colorType) {
     case 'toiletY':
-      color = 'blue'
-      text = toilet
+      svg = childToilet
       break
     case 'toiletN':
-      color = '#A0D8F1'
-      text = toilet
+      svg = toilet
       break
     case 'childCareY':
-      color = 'green'
-      text = er
+      svg = childEr
       break
     case 'childCareN':
-      color = '#90EE90'
-      text = er
+      svg = er
       break
     default:
       break
   }
 
-  const svgMarkup = `<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-        <rect stroke="${color}" fill="${color}" x="0.1" y="0.1" width="22" height="22" />
-        <text x="12" y="18" font-size="12pt" font-family="Arial" font-weight="bold" 
-        text-anchor="middle" fill="${stroke}" >${text}</text></svg>
-      `
-  return svgMarkup
+  return svg
 }
 
 export default {
