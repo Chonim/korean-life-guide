@@ -4,7 +4,7 @@
       <spinner></spinner>
     </div>
     <div class="loading-dimer" v-if="isLoading"></div>
-    <div class="current-location">
+    <div class="current-location" @click="getCurrentPosition()" v-show="!IsOptimalWaySearch">
       Current location
     </div>
     <map-header :currentPosition="currentPosition"></map-header>
@@ -49,6 +49,7 @@ export default {
       clusterRadius: 0.2,
       points: {},
       currentPosition: '',
+      overlayLayer: null,
       coords: {
         lat: 37,
         lng: 127
@@ -123,6 +124,7 @@ export default {
           }
         }
       )
+      this.overlayTile()
       const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(this.map))
       this.ui = H.ui.UI.createDefault(this.map, defaultLayers)
 
@@ -150,6 +152,29 @@ export default {
       } else {
         this.getCurrentPosition()
       }
+    },
+    overlayTile () {
+      const tileProvider = new H.map.provider.ImageTileProvider({
+        // tileSize: 256,
+        getURL: (x, y, z) => {
+          return `https://a.tile.openstreetmap.org/${z}/${x}/${y}.png`
+          // return `http://mt1.google.com/vt/lyrs=m&x=${x}&y=${y}&z=${z}`
+          // return `http://c.tile.opencyclemap.org/cycle/${z}/${x}/${y}.png`
+          // return `https://a.tile.thunderforest.com/cycle/${z}/${x}/${y}.png?apikey=0e6fc415256d4fbb9b5166a718591d71`
+          // return `https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/${z}/${y}/${x}`
+          // return `https://api.mapbox.com/styles/v1/mapbox/streets-v10/tiles/256/${z}/${x}/${y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY5YzJzczA2ejIzM29hNGQ3emFsMXgifQ.az9JUrQP7klCgD3W-ueILQ`
+          // return `http://a.tile.stamen.com/toner/${z}/${x}/${y}.png`
+          // return `http://c.tile.stamen.com/watercolor/${z}/${x}/${y}.jpg`
+        }
+      })
+      // Now let's create a layer that will consume tiles from our provider
+      this.overlayLayer = new H.map.layer.TileLayer(tileProvider, {
+        // Let's make it semi-transparent
+        opacity: 1
+      })
+
+      // Finally add our layer containing old Berlin to a map
+      this.map.addLayer(this.overlayLayer)
     },
     setZoom () {
       this.currentZoom = this.markerVisibleZoom
@@ -230,6 +255,7 @@ export default {
         }
 
         const markerStyle = mapHelpers.getMarkerStyle(colorType)
+        // const icon = new H.map.Icon(markerStyle)
         const icon = new H.map.Icon(markerStyle, {size: {w: 32, h: 32}})
         const marker = new H.map.Marker({lat, lng}, {icon})
         const isToilet = colorType.includes('toilet')
