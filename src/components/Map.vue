@@ -3,6 +3,10 @@
     <div class="spinner-container" v-if="isLoading">
       <spinner></spinner>
     </div>
+    <div class="loading-dimer" v-if="isLoading"></div>
+    <div class="current-location">
+      Current location
+    </div>
     <map-header :currentPosition="currentPosition"></map-header>
     <div id="mapContainer" class="map-container"></div>
     <warning-message v-show="!IsOptimalWaySearch && currentZoom < markerVisibleZoom"></warning-message>
@@ -469,7 +473,7 @@ export default {
 <style lang="scss">
 .H_ib_body {
   background-color: #fff;
-  width: 140px;
+  width: 240px;
   padding: 0;
   border-radius: 10px;
   .H_ib_close {
@@ -477,20 +481,43 @@ export default {
     border-radius: 24px;
   }
   .H_ib_content {
-    padding-top: 20px;
-    color: #000;
-    font-size: 10px;
+    padding: 20px 16px;
+    color: #666;
+    font-size: 14px;
+    line-height: 24px;
   }
 }
 </style>
 <style lang="scss" scoped>
 .map-wrapper {
   height: 100%;
+  .current-location {
+    position: fixed;
+    top: 90px;
+    padding: 10px 20px;
+    transform: translateX(-50%);
+    left: 50%;
+    z-index: 9;
+    color: #ffffff;
+    border-radius: 40px;
+    background-color: rgb(31, 38, 42);
+  }
+  .loading-dimer {
+    position: fixed;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    margin-top: 70px;
+    background-color: #ffffff;
+    opacity: .3;
+    z-index: 8;
+  }
   .spinner-container {
     position: absolute;
     z-index: 9;
-    left: 48%;
-    top: 58%;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 50%;
   }
   .map-container {
     width: 100%;

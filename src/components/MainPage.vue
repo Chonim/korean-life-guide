@@ -12,24 +12,45 @@
     </div>
     <div class="option-wrapper">
       <div class="option-item">
-        <input type="checkbox" id="KidsToilet" name="feature" ref="kidsToilet"
-               value="KidsToilet" checked />
-        <label for="KidsToilet">Kids Toilet</label>
+        <label for="KidsToilet">
+          <input type="checkbox"
+                 id="KidsToilet"
+                 name="feature"
+                 ref="kidsToilet"
+                 value="KidsToilet" checked />
+          Kids Toilet
+        </label>
       </div>
       <div class="option-item">
-        <input type="checkbox" id="EmergencyRoom" name="feature" ref="emergencyRoom"
-               value="EmergencyRoom" checked />
-        <label for="EmergencyRoom">Emergency Room (Pediatric Doctor)</label>
+        <label for="EmergencyRoom">
+          <input type="checkbox"
+                 id="EmergencyRoom"
+                 name="feature"
+                 ref="emergencyRoom"
+                 value="EmergencyRoom" checked />
+          Emergency Room (Pediatric Doctor)
+        </label>
       </div>
       <div class="option-item">
-        <input type="checkbox" id="ChildcareRoom" name="feature" ref="childcareRoom"
-               value="ChildcareRoom" disabled />
-        <label for="ChildcareRoom" class="disabled-text">Childcare Room<span class="coming-soon">Coming soon</span></label>
+        <label for="ChildcareRoom" class="disabled-text">
+          <input type="checkbox"
+                 id="ChildcareRoom"
+                 name="feature"
+                 ref="childcareRoom"
+                 value="ChildcareRoom" disabled />
+          Childcare Room
+          <span class="coming-soon">Coming soon</span>
+        </label>
       </div>
       <div class="option-item">
-        <input type="checkbox" id="Stroller" name="feature" ref="stroller"
-               value="Stroller" disabled />
-        <label for="Stroller" class="disabled-text">Stroller (Barrier-free)<span class="coming-soon">Coming soon</span></label>
+        <label for="Stroller" class="disabled-text">
+          <input type="checkbox"
+                 id="Stroller"
+                 name="feature"
+                 ref="stroller"
+                 value="Stroller" disabled />
+          Stroller (Barrier-free)
+          <span class="coming-soon">Coming soon</span></label>
       </div>
     </div>
   </div>
@@ -138,13 +159,14 @@ p {
 }
 .option-item {
   margin-bottom: 10px;
-  margin-left: 10px;
+  padding: 0 10px;
   .disabled-text {
     color: grey;
     .coming-soon {
       color: #fff;
-      background-color: #ffaa22;
+      background-color: #2D343B;
       padding: 2px 10px;
+      border-radius: 4px;
       margin-left: 10px;
       font-size: 14px;
     }
@@ -154,11 +176,13 @@ label {
   font-weight: 400;
   border: 1px solid #ededed;
   padding:  20px 10px 20px 20px;
-  margin-left: 8px;
   border-radius: 8px;
-  width: calc(100% - 26px);
+  width: 100%;
   display: inline-block;
   background-color: #fafafa;
+  input {
+    margin-right: 8px;
+  }
 }
 .button-wrapper {
   width: 100%;
