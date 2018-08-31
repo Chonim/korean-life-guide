@@ -5,7 +5,7 @@
     </div>
     <div class="loading-dimer" v-if="isLoading"></div>
     <div class="current-location" @click="getCurrentPosition()" v-show="!IsOptimalWaySearch">
-      Current location
+      <i class="fas fa-bullseye"></i>
     </div>
     <map-header :currentPosition="currentPosition"></map-header>
     <div id="mapContainer" class="map-container"></div>
@@ -519,14 +519,13 @@ export default {
   height: 100%;
   .current-location {
     position: fixed;
-    top: 90px;
-    padding: 10px 20px;
-    transform: translateX(-50%);
-    left: 50%;
+    top: 80px;
+    left: 10px;
+    padding: 8px;
     z-index: 9;
-    color: #ffffff;
-    border-radius: 40px;
-    background-color: rgb(31, 38, 42);
+    border-radius: 20px;
+    border: 2px solid #000;
+    background-color: rgba(31, 38, 42, 0.2);
   }
   .loading-dimer {
     position: fixed;
