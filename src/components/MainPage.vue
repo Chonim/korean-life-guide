@@ -159,13 +159,14 @@ p {
 }
 .option-item {
   margin-bottom: 10px;
-  margin-left: 10px;
+  padding: 0 10px;
   .disabled-text {
     color: grey;
     .coming-soon {
       color: #fff;
-      background-color: #ffaa22;
+      background-color: #2D343B;
       padding: 2px 10px;
+      border-radius: 4px;
       margin-left: 10px;
       font-size: 14px;
     }
@@ -175,11 +176,13 @@ label {
   font-weight: 400;
   border: 1px solid #ededed;
   padding:  20px 10px 20px 20px;
-  margin-left: 8px;
   border-radius: 8px;
-  width: calc(100% - 26px);
+  width: 100%;
   display: inline-block;
   background-color: #fafafa;
+  input {
+    margin-right: 8px;
+  }
 }
 .button-wrapper {
   width: 100%;
