@@ -12,24 +12,45 @@
     </div>
     <div class="option-wrapper">
       <div class="option-item">
-        <input type="checkbox" id="KidsToilet" name="feature" ref="kidsToilet"
-               value="KidsToilet" checked />
-        <label for="KidsToilet">Kids Toilet</label>
+        <label for="KidsToilet">
+          <input type="checkbox"
+                 id="KidsToilet"
+                 name="feature"
+                 ref="kidsToilet"
+                 value="KidsToilet" checked />
+          Kids Toilet
+        </label>
       </div>
       <div class="option-item">
-        <input type="checkbox" id="EmergencyRoom" name="feature" ref="emergencyRoom"
-               value="EmergencyRoom" checked />
-        <label for="EmergencyRoom">Emergency Room (Pediatric Doctor)</label>
+        <label for="EmergencyRoom">
+          <input type="checkbox"
+                 id="EmergencyRoom"
+                 name="feature"
+                 ref="emergencyRoom"
+                 value="EmergencyRoom" checked />
+          Emergency Room (Pediatric Doctor)
+        </label>
       </div>
       <div class="option-item">
-        <input type="checkbox" id="ChildcareRoom" name="feature" ref="childcareRoom"
-               value="ChildcareRoom" disabled />
-        <label for="ChildcareRoom" class="disabled-text">Childcare Room<span class="coming-soon">Coming soon</span></label>
+        <label for="ChildcareRoom" class="disabled-text">
+          <input type="checkbox"
+                 id="ChildcareRoom"
+                 name="feature"
+                 ref="childcareRoom"
+                 value="ChildcareRoom" disabled />
+          Childcare Room
+          <span class="coming-soon">Coming soon</span>
+        </label>
       </div>
       <div class="option-item">
-        <input type="checkbox" id="Stroller" name="feature" ref="stroller"
-               value="Stroller" disabled />
-        <label for="Stroller" class="disabled-text">Stroller (Barrier-free)<span class="coming-soon">Coming soon</span></label>
+        <label for="Stroller" class="disabled-text">
+          <input type="checkbox"
+                 id="Stroller"
+                 name="feature"
+                 ref="stroller"
+                 value="Stroller" disabled />
+          Stroller (Barrier-free)
+          <span class="coming-soon">Coming soon</span></label>
       </div>
     </div>
   </div>
