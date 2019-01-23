@@ -182,7 +182,9 @@ export default {
             this.prevInfowindow.close(this.map, marker)
           }
           infowindow.open(this.map, marker)
-          this.map.panTo(marker.getPosition())
+          const newCenter = marker.getPosition()
+          this.map.panTo(newCenter)
+          this.geocodeLatLng(newCenter)
           this.prevInfowindow = infowindow
         })
         return marker
@@ -261,11 +263,12 @@ export default {
       navigator.geolocation.getCurrentPosition((position) => {
         this.isLoading = false
         const { coords } = position
-        this.coords = {
-          lat: coords.latitude,
-          lng: coords.longitude
-        }
-        this.setPosition(this.coords.lat, this.coords.lng)
+        // this.coords = {
+        //   lat: coords.latitude,
+        //   lng: coords.longitude
+        // }
+        const newCoords = new daum.maps.LatLng(coords.latitude, coords.longitude)
+        this.map.panTo(newCoords)
       }, (err) => {
         this.isLoading = false
         switch (err.code) {

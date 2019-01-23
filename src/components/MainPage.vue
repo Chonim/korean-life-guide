@@ -94,15 +94,16 @@ export default {
       })
     },
     openPlaceSearch (location) {
-      this.goNext(location.lat(), location.lng(), false)
+      this.goNext(location.lat(), location.lng())
     },
     openNearbySearch () {
-      this.goNext(0, 0, false)
+      if (!this.checkedOptions.length) {
+        alert('기관을 1개 이상 선택해 주세요')
+        return
+      }
+      this.goNext(37.566338, 126.977956)
     },
-    getOptimalWay () {
-      this.goNext(0, 0, true)
-    },
-    goNext (lat, lng, isOptimalWaySearch) {
+    goNext (lat, lng) {
       this.setLat(lat)
       this.setLng(lng)
       this.$router.push('/map')
