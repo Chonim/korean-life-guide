@@ -1,4 +1,4 @@
-import icons from './iconHelpers'
+// import icons from './iconHelpers'
 
 const setToiletBubbleContent = (toilet) => {
   const {
@@ -37,36 +37,36 @@ const setErBubbleContent = (er) => {
   return content
 }
 
-const getMarkerStyle = (colorType) => {
-  const {
-    childToilet,
-    toilet,
-    childEr,
-    er
-  } = icons
-  let svg = ''
-  switch (colorType) {
-    case 'toiletY':
-      svg = childToilet
-      break
-    case 'toiletN':
-      svg = toilet
-      break
-    case 'childCareY':
-      svg = childEr
-      break
-    case 'childCareN':
-      svg = er
-      break
-    default:
-      break
-  }
+// const getMarkerStyle = (colorType) => {
+//   const {
+//     childToilet,
+//     toilet,
+//     childEr,
+//     er
+//   } = icons
+//   let svg = ''
+//   switch (colorType) {
+//     case 'toiletY':
+//       svg = childToilet
+//       break
+//     case 'toiletN':
+//       svg = toilet
+//       break
+//     case 'childCareY':
+//       svg = childEr
+//       break
+//     case 'childCareN':
+//       svg = er
+//       break
+//     default:
+//       break
+//   }
 
-  return svg
-}
+//   return svg
+// }
 
 export default {
   setToiletBubbleContent,
-  setErBubbleContent,
-  getMarkerStyle
+  setErBubbleContent
+  // getMarkerStyle
 }

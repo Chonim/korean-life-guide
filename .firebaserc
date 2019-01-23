@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "travel-with-kids"
+    "default": "compass",
+    "staging": "compass-93de8"
   }
 }

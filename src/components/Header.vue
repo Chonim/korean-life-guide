@@ -22,9 +22,9 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  width: 100%;
+  width: 100vw;
   height: 70px;
-  background-color: #3FD5CA;
+  background-color: #262626;
   display: flex;
   padding-top: 10px;
   color: #fff;

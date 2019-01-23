@@ -3,6 +3,5 @@ export default {
   LNG: state => state.lng,
   ADDRESS: state => state.address,
   IS_OPTIMAL_WAY_SEARCH: state => state.isOptimalWaySearch,
-  IS_TOILET_CHECKED: state => state.isToiletChecked,
-  IS_ER_CHECKED: state => state.isErChecked
+  CHECKED_FILTERS: state => state.checkedFilters
 }

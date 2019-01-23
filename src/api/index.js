@@ -1,9 +1,8 @@
 import _ from 'lodash'
-import Toilets from './toilets'
-import Emergency from './emergency'
+import Points from './Points'
 
 function api (method, ...args) {
-  const path = _.extend({}, Toilets, Emergency)
+  const path = _.extend({}, Points)
   return path[method](...args)
     .then(response => response.data)
     .catch((error) => {

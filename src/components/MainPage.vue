@@ -1,56 +1,31 @@
 <template>
   <div class="main-page">
-    <h1><span class="title-1">Travel </span><span class="title-2">With </span><span class="title-3">kids</span></h1>
+    <img class="compass-logo" src="../assets/compass-logo.png" alt="compass-logo">
     <p>Destination / Location</p>
     <div class="input-wrapper">
       <img class="loaction-icon" src="../assets/icons/location-icon.svg" alt="location">
-      <input class="search-input" id="pac-input" type="text">
+      <input class="search-input" id="pac-input" type="text" placeholder="위치 입력">
     </div>
     <div class="button-wrapper">
-      <button @click="getOptimalWay()">Optimal Way Search</button>
-      <button @click="openNearbySearch()">Facilities Nearby</button>
+      <button @click="openNearbySearch()">가까운 기관 찾기</button>
     </div>
     <div class="option-wrapper">
-      <div class="option-item">
-        <label for="KidsToilet">
-          <input type="checkbox"
-                 id="KidsToilet"
-                 name="feature"
-                 ref="kidsToilet"
-                 value="KidsToilet" checked />
-          Kids Toilet
+      <div
+        class="option-item"
+        v-for="option in options"
+        :key="option.value"
+      >
+        <label :for="option.value">
+          <input
+            type="checkbox"
+            :id="option.value"
+            name="feature"
+            :ref="option.value"
+            :value="option.value"
+            v-model="checkedOptions"
+          />
+          {{option.title}}
         </label>
-      </div>
-      <div class="option-item">
-        <label for="EmergencyRoom">
-          <input type="checkbox"
-                 id="EmergencyRoom"
-                 name="feature"
-                 ref="emergencyRoom"
-                 value="EmergencyRoom" checked />
-          Emergency Room (Pediatric Doctor)
-        </label>
-      </div>
-      <div class="option-item">
-        <label for="ChildcareRoom" class="disabled-text">
-          <input type="checkbox"
-                 id="ChildcareRoom"
-                 name="feature"
-                 ref="childcareRoom"
-                 value="ChildcareRoom" disabled />
-          Childcare Room
-          <span class="coming-soon">Coming soon</span>
-        </label>
-      </div>
-      <div class="option-item">
-        <label for="Stroller" class="disabled-text">
-          <input type="checkbox"
-                 id="Stroller"
-                 name="feature"
-                 ref="stroller"
-                 value="Stroller" disabled />
-          Stroller (Barrier-free)
-          <span class="coming-soon">Coming soon</span></label>
       </div>
     </div>
   </div>
@@ -63,16 +38,42 @@ const { google } = window
 
 export default {
   name: 'MainPage',
+  data () {
+    return {
+      options: [
+        {
+          title: '무료진료',
+          value: 'medical'
+        }, {
+          title: '일반상담',
+          value: 'consulting'
+        }, {
+          title: '법률상담',
+          value: 'law'
+        }, {
+          title: '한국어교육',
+          value: 'edu'
+        }, {
+          title: '출입국관리사무소',
+          value: 'immigration_offices'
+        }, {
+          title: '고용복지플러스센터',
+          value: 'recruit_center'
+        }
+      ],
+      checkedOptions: []
+    }
+  },
   mounted () {
     this.initAutoComplete()
+    // this.checkedOptions = this.options.map(filter => filter.value)
   },
   methods: {
     ...mapActions('location', {
       setLat: 'SET_LAT',
       setLng: 'SET_LNG',
       setIsOptimalWaySearch: 'SET_IS_OPTIMAL_WAY_SEARCH',
-      setIsToiletChecked: 'SET_IS_TOILET_CHECKED',
-      setIsErChecked: 'SET_IS_ER_CHECKED'
+      setCheckedFilters: 'SET_CHECKED_FILTERS'
     }),
     initAutoComplete () {
       const input = document.getElementById('pac-input')
@@ -104,29 +105,21 @@ export default {
     goNext (lat, lng, isOptimalWaySearch) {
       this.setLat(lat)
       this.setLng(lng)
-      this.setIsOptimalWaySearch(isOptimalWaySearch)
       this.$router.push('/map')
     }
   },
   beforeDestroy () {
-    const {
-      kidsToilet,
-      childcareRoom,
-      stroller,
-      emergencyRoom
-    } = this.$refs
-    const isToiletChecked = kidsToilet.checked
-    const isErChecked = emergencyRoom.checked
-    this.setIsToiletChecked(isToiletChecked)
-    this.setIsErChecked(isErChecked)
+    this.setCheckedFilters(this.checkedOptions)
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .main-page {
-  padding: 50px 12px 0 12px;
+  /* padding: 50px 12px 0 12px; */
+  .compass-logo {
+    max-width: 100vw;
+  }
 }
 h1 {
   font-family: 'Luckiest Guy';
@@ -145,17 +138,29 @@ h1 .title-3 {
   color: #35a4ee;
 }
 p {
+  margin-top: 10px;
   font-family: 'Roboto', sans-serif;
   text-align: center;
   margin-bottom: 10px;
 }
-.search-input {
-  border: 1px solid #ededed;
-  border-radius: 8px;
-  padding: 12px 10px 12px 34px;
-  font-size: 16px;
-  width: 100%;
-  margin-bottom: 40px;
+.input-wrapper {
+  display: flex;
+  position: relative;
+  .search-input {
+    border: 1px solid #ededed;
+    border-radius: 8px;
+    padding: 12px 10px 12px 34px;
+    font-size: 16px;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  .loaction-icon {
+    position: absolute;
+    top: 12px;
+    left: 28px;
+    width: 20px;
+  }
 }
 .option-item {
   margin-bottom: 10px;
@@ -175,7 +180,7 @@ p {
 label {
   font-weight: 400;
   border: 1px solid #ededed;
-  padding:  20px 10px 20px 20px;
+  padding:  10px;
   border-radius: 8px;
   width: 100%;
   display: inline-block;
@@ -185,19 +190,21 @@ label {
   }
 }
 .button-wrapper {
-  width: 100%;
+  width: 80%;
   display: flex;
+  margin: 0 auto;
   justify-content: space-around;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 button {
   display: flex;
   justify-content: center;
   flex-grow: 1;
-  padding: 16px 20px;
+  box-sizing: border-box;
+  padding: 12px 16px;
   color: #ffffff;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 18px;
   margin-right: 12px;
   font-weight: 600;
   background-color: #ffaa22;
@@ -206,14 +213,5 @@ button {
 button:last-child {
   margin-right: 0;
   background-color: #35a4ee;
-}
-.input-wrapper {
-  position: relative;
-}
-.loaction-icon {
-  position: absolute;
-  top: 12px;
-  left: 10px;
-  width: 20px;
 }
 </style>
