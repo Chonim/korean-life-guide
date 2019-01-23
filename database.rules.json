@@ -1,6 +1,28 @@
 {
   "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
+    "immigrants_support": {
+      ".indexOn": [
+        "lat",
+        "lng"
+      ],
+      ".read": true,
+      ".write": false
+    },
+    "immigration_offices": {
+      ".indexOn": [
+        "lat",
+        "lng"
+      ],
+      ".read": true,
+      ".write": false
+    },
+    "recruit_center": {
+      ".indexOn": [
+        "lat",
+        "lng"
+      ],
+      ".read": true,
+      ".write": false
+    }
   }
 }
