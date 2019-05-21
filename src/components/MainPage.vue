@@ -1,6 +1,5 @@
 <template>
   <div class="main-page">
-    <img class="compass-logo" src="../assets/compass-logo.png" alt="compass-logo">
     <p>Destination / Location</p>
     <div class="input-wrapper">
       <img class="loaction-icon" src="../assets/icons/location-icon.svg" alt="location">
@@ -116,12 +115,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-page {
-  /* padding: 50px 12px 0 12px; */
-  .compass-logo {
-    max-width: 100vw;
-  }
-}
 h1 {
   font-family: 'Luckiest Guy';
   font-weight: 400;

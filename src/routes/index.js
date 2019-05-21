@@ -13,9 +13,15 @@ export default [
       import('@/components/MainPage')
   },
   {
+    path: '/about',
+    name: 'AboutUs',
+    component: () =>
+      import('@/components/About')
+  },
+  {
     path: '/map',
     name: 'Map',
     component: () =>
-      import('@/components/Map.vue')
+      import('@/components/Map')
   }
 ]

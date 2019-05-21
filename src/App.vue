@@ -1,12 +1,28 @@
 <template>
   <div id="app">
-    <router-view/>
+    <template v-if="isNotInMap">
+      <side-menu />
+      <compass-logo />
+    </template>
+    <router-view />
   </div>
 </template>
 
 <script>
+import SideMenu from '@/components/SideMenu'
+import CompassLogo from '@/components/Logo'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    SideMenu,
+    CompassLogo
+  },
+  computed: {
+    isNotInMap () {
+      return this.$route.name !== 'Map'
+    }
+  }
 }
 </script>
 
