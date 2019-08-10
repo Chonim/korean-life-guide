@@ -37,7 +37,7 @@ export default {
   left: -250px;
   background-color: #111;
   overflow-x: hidden;
-  transition: 0.5s;
+  transition: left 0.3s ease-in-out;
   padding-top: 60px;
 }
 

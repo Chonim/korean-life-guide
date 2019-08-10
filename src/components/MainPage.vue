@@ -1,5 +1,8 @@
 <template>
   <div class="main-page">
+    <button @click="$store.dispatch('translates/fetchTranslates')">
+      en
+    </button>
     <p>Destination / Location</p>
     <div class="input-wrapper">
       <img class="loaction-icon" src="../assets/icons/location-icon.svg" alt="location">
@@ -23,7 +26,7 @@
             :value="option.value"
             v-model="checkedOptions"
           />
-          {{option.title}}
+          {{translates[option.title]}}
         </label>
       </div>
     </div>
@@ -32,6 +35,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { Translate } from '@google-cloud/translate'
 
 const { google } = window
 
@@ -63,9 +67,28 @@ export default {
       checkedOptions: []
     }
   },
-  mounted () {
+  computed: {
+    translates () {
+      return this.$store.getters['translates/translates']
+    }
+  },
+  async mounted () {
     this.initAutoComplete()
-    // this.checkedOptions = this.options.map(filter => filter.value)
+    console.log(Translate)
+    // Instantiates a client
+    const projectId = 'translate-test-1565259631382'
+    const translate = new Translate({projectId})
+
+    // The text to translate
+    const text = 'Hello, world!'
+
+    // The target language
+    const target = 'ru'
+
+    // Translates some text into Russian
+    const [translation] = await translate.translate(text, target)
+    console.log(`Text: ${text}`)
+    console.log(`Translation: ${translation}`)
   },
   methods: {
     ...mapActions('location', {
