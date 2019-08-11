@@ -1,15 +1,14 @@
 <template>
   <div class="main-page">
-    <button @click="$store.dispatch('translates/fetchTranslates')">
-      en
-    </button>
     <p>Destination / Location</p>
     <div class="input-wrapper">
       <img class="loaction-icon" src="../assets/icons/location-icon.svg" alt="location">
       <input class="search-input" id="pac-input" type="text" placeholder="위치 입력">
     </div>
     <div class="button-wrapper">
-      <button @click="openNearbySearch()">가까운 기관 찾기</button>
+      <button @click="openNearbySearch()">
+        {{ translates['가까운 기관 찾기'] }}
+      </button>
     </div>
     <div class="option-wrapper">
       <div
@@ -72,23 +71,8 @@ export default {
       return this.$store.getters['translates/translates']
     }
   },
-  async mounted () {
+  mounted () {
     this.initAutoComplete()
-    console.log(Translate)
-    // Instantiates a client
-    const projectId = 'translate-test-1565259631382'
-    const translate = new Translate({projectId})
-
-    // The text to translate
-    const text = 'Hello, world!'
-
-    // The target language
-    const target = 'ru'
-
-    // Translates some text into Russian
-    const [translation] = await translate.translate(text, target)
-    console.log(`Text: ${text}`)
-    console.log(`Translation: ${translation}`)
   },
   methods: {
     ...mapActions('location', {
