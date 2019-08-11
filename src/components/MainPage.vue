@@ -34,7 +34,6 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { Translate } from '@google-cloud/translate'
 
 const { google } = window
 
