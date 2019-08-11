@@ -10,7 +10,7 @@
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
-    "deploy": "firebase deploy",
+    "deploy": "yarn build && firebase deploy",
     "deploy:gh": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {

@@ -103,7 +103,7 @@ export default {
     },
     openNearbySearch () {
       if (!this.checkedOptions.length) {
-        alert('기관을 1개 이상 선택해 주세요')
+        alert(this.translates['기관을 1개 이상 선택해 주세요'])
         return
       }
       this.goNext(37.566338, 126.977956)
