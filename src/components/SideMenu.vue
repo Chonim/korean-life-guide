@@ -9,7 +9,7 @@
         {{ translates['함께 하는 사람들'] }}
       </a>
     </div>
-    <span class="sidenav-toggle" @click="openNav()">&#9776;</span>
+    <div class="sidenav-toggle" @click="openNav()">&#9776;</div>
   </div>
 </template>
 
@@ -74,7 +74,7 @@ export default {
   }
 
   .sidenav-toggle {
-    margin-top: 20px;
+    margin-top: 8px;
     margin-left: 20px;
     font-size: 30px;
     cursor: pointer;
