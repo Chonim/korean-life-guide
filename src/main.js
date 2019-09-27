@@ -3,8 +3,9 @@
 import Vue from 'vue'
 import lodash from 'lodash'
 
-import './plugins/vuex'
-import './plugins/axios'
+import '@/plugins/ga'
+import '@/plugins/vuex'
+import '@/plugins/axios'
 import { router } from './plugins/vue-router'
 
 import App from './App'
