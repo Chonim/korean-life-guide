@@ -19,6 +19,12 @@ export default [
       import('@/components/About')
   },
   {
+    path: '/dormitory',
+    name: 'DormitoryRelated',
+    component: () =>
+      import('@/components/DormitoryRelated')
+  },
+  {
     path: '/map',
     name: 'Map',
     component: () =>

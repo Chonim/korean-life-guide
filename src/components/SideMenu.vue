@@ -2,11 +2,12 @@
   <div class="side-menu-wrapper">
     <div id="mySidenav" class="sidenav">
       <a href="#" class="closebtn" @click="closeNav()">&times;</a>
-      <a @click="routerPush('/')">
-        {{ translates['가까운 기관 찾기'] }}
-      </a>
-      <a @click="routerPush('/about')">
-        {{ translates['함께 하는 사람들'] }}
+      <a
+        v-for="menu in menus"
+        :key="menu.route"
+        @click="routerPush(menu.route)"
+      >
+        {{ translates[menu.pageName] }}
       </a>
     </div>
     <div class="sidenav-toggle" @click="openNav()">&#9776;</div>
@@ -16,6 +17,20 @@
 <script>
 export default {
   name: 'SideMenu',
+  data () {
+    return {
+      menus: [{
+        pageName: '가까운 기관 찾기',
+        route: '/'
+      }, {
+        pageName: '함께 하는 사람들',
+        route: '/about'
+      }, {
+        pageName: '기숙사 관련',
+        route: '/dormitory'
+      }]
+    }
+  },
   computed: {
     translates () {
       return this.$store.getters['translates/translates']
