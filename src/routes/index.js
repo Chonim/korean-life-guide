@@ -19,6 +19,12 @@ export default [
       import('@/components/About')
   },
   {
+    path: '/visa',
+    name: 'Visa',
+    component: () =>
+      import('@/components/Visa')
+  },
+  {
     path: '/dormitory',
     name: 'DormitoryRelated',
     component: () =>

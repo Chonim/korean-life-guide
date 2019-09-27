@@ -26,6 +26,9 @@ export default {
         pageName: '함께 하는 사람들',
         route: '/about'
       }, {
+        pageName: '비자',
+        route: '/visa'
+      }, {
         pageName: '기숙사 관련',
         route: '/dormitory'
       }]
