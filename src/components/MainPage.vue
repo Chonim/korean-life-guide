@@ -6,7 +6,9 @@
       <input class="search-input" id="pac-input" type="text" placeholder="위치 입력">
     </div>
     <div class="button-wrapper">
-      <button @click="openNearbySearch()">가까운 기관 찾기</button>
+      <button @click="openNearbySearch()">
+        {{ translates['가까운 기관 찾기'] }}
+      </button>
     </div>
     <div class="option-wrapper">
       <div
@@ -23,7 +25,7 @@
             :value="option.value"
             v-model="checkedOptions"
           />
-          {{option.title}}
+          {{translates[option.title]}}
         </label>
       </div>
     </div>
@@ -63,9 +65,13 @@ export default {
       checkedOptions: []
     }
   },
+  computed: {
+    translates () {
+      return this.$store.getters['translates/translates']
+    }
+  },
   mounted () {
     this.initAutoComplete()
-    // this.checkedOptions = this.options.map(filter => filter.value)
   },
   methods: {
     ...mapActions('location', {
@@ -97,7 +103,7 @@ export default {
     },
     openNearbySearch () {
       if (!this.checkedOptions.length) {
-        alert('기관을 1개 이상 선택해 주세요')
+        alert(this.translates['기관을 1개 이상 선택해 주세요'])
         return
       }
       this.goNext(37.566338, 126.977956)

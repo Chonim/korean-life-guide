@@ -19,6 +19,24 @@ export default [
       import('@/components/About')
   },
   {
+    path: '/visa',
+    name: 'Visa',
+    component: () =>
+      import('@/components/Visa')
+  },
+  {
+    path: '/visa-temp',
+    name: 'VisaTemp',
+    component: () =>
+      import('@/components/VisaTemp')
+  },
+  {
+    path: '/dormitory',
+    name: 'DormitoryRelated',
+    component: () =>
+      import('@/components/DormitoryRelated')
+  },
+  {
     path: '/map',
     name: 'Map',
     component: () =>

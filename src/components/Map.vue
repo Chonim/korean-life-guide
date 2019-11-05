@@ -66,7 +66,10 @@ export default {
       savedLat: 'LAT',
       savedLng: 'LNG',
       checkedFilters: 'CHECKED_FILTERS'
-    })
+    }),
+    translates () {
+      return this.$store.getters['translates/translates']
+    }
   },
   methods: {
     async controlSearchPoints () {
@@ -147,12 +150,13 @@ export default {
           position: new daum.maps.LatLng(lat, lng)
         })
         // add infowindow
-        const addrEl = addr ? `<div>주소: ${addr}</div>` : ''
-        const timeEl = time ? `<div>운영시간: ${time}</div>` : ''
-        const langEl = lang ? `<div>지원언어: ${lang}</div>` : ''
+        const { translates } = this
+        const addrEl = addr ? `<div>${translates['주소']}: ${addr}</div>` : ''
+        const timeEl = time ? `<div>${translates['운영시간']}: ${time}</div>` : ''
+        const langEl = lang ? `<div>${translates['지원언어']}: ${lang}</div>` : ''
         const linkEl = url ? `
           <div>
-            <a target="_blank" href="${url}">홈페이지 바로가기</a>
+            <a target="_blank" href="${url}">${translates['홈페이지 바로가기']}</a>
           </div>
         ` : ''
         const iwContent = `
@@ -165,9 +169,9 @@ export default {
               font-size: 14px;
               padding: 4px;
           ">
-            <div>기관명: ${name}</div>
+            <div>${translates['기관명']}: ${name}</div>
             ${addrEl}
-            <div>전화번호: ${tel}</div>
+            <div>${translates['전화번호']}: ${tel}</div>
             ${timeEl}
             ${langEl}
             ${linkEl}
