@@ -60,17 +60,17 @@ export default {
         route: '',
         children: [{
           pageName: '기숙사',
-          route: '/dormitory'
+          route: '/labor/dormitory'
         }, {
           pageName: '사업장 변경',
-          route: '/'
+          route: '/labor/work-change'
         }, {
           pageName: '육아도우미 채용절차',
-          route: '/'
+          route: '/labor/nanny-hiring'
         }]
       }, {
         pageName: '외국인 생활안내',
-        route: '/'
+        route: '/life-guide'
       }, {
         pageName: '함께 하는 사람들',
         route: '/about'

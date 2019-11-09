@@ -24,6 +24,11 @@ export default [
     component: () => import('@/components/visa')
   },
   {
+    path: '/labor/:laborType',
+    name: 'Labor',
+    component: () => import('@/components/labor')
+  },
+  {
     path: '/visa-temp',
     name: 'VisaTemp',
     component: () =>
@@ -34,6 +39,12 @@ export default [
     name: 'DormitoryRelated',
     component: () =>
       import('@/components/DormitoryRelated')
+  },
+  {
+    path: '/life-guide',
+    name: 'LifeGuide',
+    component: () =>
+      import('@/components/life-guide')
   },
   {
     path: '/map',
