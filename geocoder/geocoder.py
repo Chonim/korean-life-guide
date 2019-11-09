@@ -13,8 +13,12 @@ with open('address.csv', 'r', encoding='utf-8') as csvfile:
     }
     r = requests.get(url, headers=headers)
     result = r.json()
-    coords = result['documents'][0]
-    resultstr = coords['y'] + ',' + coords['x'] + '\n'
+    resultstr = ''
+    if result['documents']:
+      coords = result['documents'][0]
+      resultstr = coords['y'] + ',' + coords['x'] + '\n'
+    else:
+      resultstr = '\n'
     print(query)
     print(resultstr)
     with open("coords_result.txt", "a") as myfile:
