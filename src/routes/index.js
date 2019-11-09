@@ -19,10 +19,9 @@ export default [
       import('@/components/about')
   },
   {
-    path: '/visa',
+    path: '/visa/:visaType',
     name: 'Visa',
-    component: () =>
-      import('@/components/Visa')
+    component: () => import('@/components/visa')
   },
   {
     path: '/visa-temp',
