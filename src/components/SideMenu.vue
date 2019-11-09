@@ -114,7 +114,7 @@ export default {
     left: -250px;
     background-color: #fff;
     overflow-x: hidden;
-    transition: left 0.3s ease-in-out;
+    transition: left 0.3s ease-out;
     padding-top: 60px;
     li:hover {
       background-color: #fff;
