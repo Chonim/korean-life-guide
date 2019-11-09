@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import CompassLogo from './Logo'
+import CompassLogo from '@/components/Logo'
 
 export default {
   name: 'AboutUs',
