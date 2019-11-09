@@ -47,13 +47,13 @@ export default {
         route: '/visa',
         children: [{
           pageName: 'E-7-4',
-          route: ''
+          route: '/visa/e74'
         }, {
           pageName: 'D-10-1',
-          route: ''
+          route: '/visa/d101'
         }, {
           pageName: 'F-2',
-          route: ''
+          route: '/visa/f2'
         }]
       }, {
         pageName: '노동',
@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     routerPush (route) {
-      this.$router.push(route)
+      this.$router.push(route).catch(() => '')
       this.closeNav()
     },
     openNav () {
