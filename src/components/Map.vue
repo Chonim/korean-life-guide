@@ -7,8 +7,11 @@
     <div class="current-location" @click="getCurrentPosition()">
       <i class="fas fa-bullseye"></i>
     </div>
-    <map-header :currentPosition="currentPosition"></map-header>
-    <div id="mapContainer" class="map-container"></div>
+    <map-header :current-position="currentPosition" />
+    <div
+      id="mapContainer"
+      class="map-container"
+    />
     <div class="center-crosshair">+</div>
   </div>
 </template>
@@ -19,6 +22,8 @@ import Spinner from 'vue-simple-spinner'
 
 import api from '@/api'
 import config from '@/config'
+
+import db from '@/assets/data'
 
 import MapHeader from './Header'
 import WarningMessage from './WarningMessage'
@@ -59,12 +64,12 @@ export default {
   async mounted () {
     await this.initMap()
     this.controlSearchPoints()
-    // this.addMarkersToMap()
   },
   computed: {
     ...mapGetters('location', {
       savedLat: 'LAT',
       savedLng: 'LNG',
+      savedAddress: 'ADDRESS',
       checkedFilters: 'CHECKED_FILTERS'
     }),
     translates () {
@@ -72,41 +77,55 @@ export default {
     }
   },
   methods: {
-    async controlSearchPoints () {
+    controlSearchPoints () {
       this.points = []
       this.setMarkers(null)
       this.markers = []
       const checkFilter = (filter) => this.checkedFilters.some(checkedFilterEl => checkedFilterEl === filter)
       let isImmigratsSupport = false
       this.isLoading = true
-      for (const checkedFilter of this.checkedFilters) {
-        switch (checkedFilter) {
-          case 'recruit_center':
-          case 'immigration_offices':
-            await this.searchPoints(checkedFilter)
-            continue
-          default:
-            if (isImmigratsSupport) {
-              continue
-            }
-            await this.searchPoints('immigrants_support')
-            isImmigratsSupport = true
-            continue
-        }
-      }
+      this.searchPoints()
       this.setMarkers(this.map)
       this.isLoading = false
     },
-    async searchPoints (table) {
+    async searchPoints () {
       const { minLat, maxLat } = this.getMinMaxLat()
-      const results = await api('getPoints', table, minLat, maxLat)
-      const resultsArr = await Object.keys(results).map(index => results[index])
-      const newPoints = this.filterPoints(table, resultsArr)
-      const newMarkers = this.createMarkers(newPoints)
-      this.markers = [
-        ...this.markers,
-        ...newMarkers
-      ]
+      let resultsArr = []
+      const results = db.filter(el => el.lat >= minLat && el.lat <= maxLat)
+      const newCheckedFilters = this.checkedFilters.map((checkedFilter) => {
+        // immigration
+        // law, medical, consulting, edu
+        // etc - recruit_center
+        switch (checkedFilter) {
+          case 'immigration_offices':
+            return 'immigration'
+          case 'recruit_center':
+            return undefined
+          case 'law':
+            return '무료법률상담'
+          case 'medical':
+            return '무료진료'
+          case 'consulting':
+            return '일반상담'
+          case 'edu':
+            return '한국어 교육'
+          default:
+            return ''
+        }
+      })
+      newCheckedFilters.forEach((checkedFilter) => {
+        let filteredResults = results
+          .filter(result => result.type === checkedFilter)
+        // recruit_center or immigration_offices
+        if (checkedFilter === undefined || checkedFilter === 'immigration') {
+          filteredResults = filteredResults.filter(({ addr }) => {
+            const [sido, sigungu] = addr.split(' ')
+            return this.savedAddress.includes(`${sido} ${sigungu}`)
+          })
+        }
+        resultsArr = [...resultsArr, ...filteredResults]
+      })
+      this.markers = this.createMarkers(resultsArr)
       return resultsArr
     },
     filterPoints (table, points) {
@@ -140,6 +159,7 @@ export default {
           lat,
           lng,
           name,
+          type,
           addr,
           tel,
           time,
@@ -151,6 +171,7 @@ export default {
         })
         // add infowindow
         const { translates } = this
+        const typeEl = type && type !== 'immigration' ? `<div>${translates['분야']}: ${type}</div>` : ''
         const addrEl = addr ? `<div>${translates['주소']}: ${addr}</div>` : ''
         const timeEl = time ? `<div>${translates['운영시간']}: ${time}</div>` : ''
         const langEl = lang ? `<div>${translates['지원언어']}: ${lang}</div>` : ''
@@ -170,6 +191,7 @@ export default {
               padding: 4px;
           ">
             <div>${translates['기관명']}: ${name}</div>
+            ${typeEl}
             ${addrEl}
             <div>${translates['전화번호']}: ${tel}</div>
             ${timeEl}
@@ -179,6 +201,7 @@ export default {
         `
         const infowindow = new daum.maps.InfoWindow({
           content: iwContent,
+          zIndex: 1,
           removable: true
         })
         daum.maps.event.addListener(marker, 'click', () => {
@@ -188,7 +211,6 @@ export default {
           infowindow.open(this.map, marker)
           const newCenter = marker.getPosition()
           this.map.panTo(newCenter)
-          this.geocodeLatLng(newCenter)
           this.prevInfowindow = infowindow
         })
         return marker
@@ -205,6 +227,7 @@ export default {
       this.geocodeLatLng(latLng)
     },
     geocodeLatLng (latLng) {
+      // aync await is not working for some reason
       const geocoder = new daum.maps.services.Geocoder()
       geocoder.coord2Address(latLng.getLng(), latLng.getLat(), (result) => {
         try {
@@ -219,10 +242,15 @@ export default {
     },
     initMap () {
       const { savedLat, savedLng } = this
+      this.geocodeLatLng({
+        getLat: () => savedLat,
+        getLng: () => savedLng
+      })
       const container = document.getElementById('mapContainer')
       const options = {
         center: new daum.maps.LatLng(savedLat, savedLng),
-        level: 3
+        // level: 3
+        level: 6
       }
       this.map = new daum.maps.Map(container, options)
 
@@ -232,10 +260,7 @@ export default {
       const zoomControl = new daum.maps.ZoomControl()
       this.map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT)
 
-      daum.maps.event.addListener(this.map, 'dragend', () => {
-        this.geocodeLatLng(this.map.getCenter())
-      })
-      daum.maps.event.addListener(this.map, 'zoom_changed', () => {
+      daum.maps.event.addListener(this.map, 'idle', () => {
         this.geocodeLatLng(this.map.getCenter())
       })
     },
@@ -267,10 +292,6 @@ export default {
       navigator.geolocation.getCurrentPosition((position) => {
         this.isLoading = false
         const { coords } = position
-        // this.coords = {
-        //   lat: coords.latitude,
-        //   lng: coords.longitude
-        // }
         const newCoords = new daum.maps.LatLng(coords.latitude, coords.longitude)
         this.map.panTo(newCoords)
       }, (err) => {
