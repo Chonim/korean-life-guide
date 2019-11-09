@@ -106,10 +106,10 @@ export default {
 .side-menu-wrapper {
   position: absolute;
   .sidenav {
+    z-index: 2;
     height: 100%;
     width: 250px;
     position: fixed;
-    z-index: 1;
     top: 0;
     left: -250px;
     background-color: #fff;
@@ -159,6 +159,7 @@ export default {
 }
 
 .mask {
+  z-index: 1;
   position: fixed;
   top: 0;
   width: 100vw;
