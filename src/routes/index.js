@@ -16,7 +16,7 @@ export default [
     path: '/about',
     name: 'AboutUs',
     component: () =>
-      import('@/components/About')
+      import('@/components/about')
   },
   {
     path: '/visa',
