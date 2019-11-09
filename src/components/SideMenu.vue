@@ -44,7 +44,7 @@ export default {
         route: '/'
       }, {
         pageName: '비자',
-        route: '/visa',
+        route: '',
         children: [{
           pageName: 'E-7-4',
           route: '/visa/e74'
@@ -57,7 +57,7 @@ export default {
         }]
       }, {
         pageName: '노동',
-        route: '/',
+        route: '',
         children: [{
           pageName: '기숙사',
           route: '/dormitory'
@@ -84,6 +84,9 @@ export default {
   },
   methods: {
     routerPush (route) {
+      if (!route) {
+        return
+      }
       this.$router.push(route).catch(() => '')
       this.closeNav()
     },
