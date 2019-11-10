@@ -1,5 +1,5 @@
 <template>
-  <div class="excel visa-temp-container">
+  <div class="excel visa-e-7-4-container">
     <!-- title -->
     <table>
       <thead>
@@ -530,6 +530,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.visa-temp-container {
+.visa-e-7-4-container {
+  > table {
+    width: 800px;
+  }
 }
 </style>

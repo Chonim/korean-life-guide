@@ -383,6 +383,8 @@ export default {
 
 <style lang="scss" scoped>
 .visa-d-10-1-container {
-  width: 805px;
+  > table {
+    width: 805px;
+  }
 }
 </style>

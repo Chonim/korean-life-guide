@@ -260,9 +260,11 @@ export default {
 
 <style lang="scss" scoped>
 .visa-f-2-container {
-  width: 555px;
-  td > span {
-    color: blue;
+  > table {
+    width: 555px;
+    td > span {
+      color: blue;
+    }
   }
 }
 </style>
