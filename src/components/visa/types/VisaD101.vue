@@ -14,7 +14,7 @@
         <tr>
           <td
             colspan="12"
-            class="ba fwㅠ dgbg tac"
+            class="ba fwb dgbg tac"
           >
             점수제 구직비자(D-10-1) 항목별 심사표
           </td>
