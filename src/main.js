@@ -7,6 +7,7 @@ import '@/plugins/ga'
 import '@/plugins/vuex'
 import '@/plugins/axios'
 import { router } from './plugins/vue-router'
+import '@/assets/styles/common.scss'
 
 import App from './App'
 import store from './store'

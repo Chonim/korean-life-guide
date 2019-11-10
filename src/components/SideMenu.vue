@@ -116,23 +116,30 @@ export default {
     overflow-x: hidden;
     transition: left 0.3s ease-out;
     padding-top: 60px;
-    li:hover {
-      background-color: #fff;
-    }
     a {
       padding: 8px 8px 8px 32px;
       text-decoration: none;
       font-size: 16px;
       color: #202020;
-      display: block;
-      transition: 0.3s;
-      &:hover {
-        background-color: #f6f6f6;
+      &:active {
+        background: none;
       }
     }
-    .child-route {
+    ul {
+      li:hover {
+        background-color: #fff;
+      }
       a {
-        padding-left: 48px;
+        display: block;
+        transition: 0.3s;
+        &:hover {
+          background-color: #f6f6f6;
+        }
+      }
+      .child-route {
+        a {
+          padding-left: 48px;
+        }
       }
     }
   }
@@ -162,7 +169,7 @@ export default {
   z-index: 1;
   position: fixed;
   top: 0;
-  width: 100vw;
+  width: 2000px;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
 }
