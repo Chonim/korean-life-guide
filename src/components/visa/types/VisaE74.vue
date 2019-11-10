@@ -478,7 +478,8 @@
 import '@/assets/styles/excel.scss'
 
 import SelectOption from '@/components/elements/SelectOption'
-import researchData from '@/components/data/research-data'
+import researchData from '@/components/data/visa-e74'
+import { createAnswerObj } from '@/utils/visaHelpers'
 
 export default {
   name: 'VisaE74',
@@ -489,86 +490,26 @@ export default {
     return {
       researchData,
       selectedValues: {
-        annualIncome: {
-          text: '',
-          score: 0
-        },
-        licence: {
-          text: '',
-          score: 0
-        },
-        skillVerification: {
-          text: '',
-          score: 0
-        },
-        education: {
-          text: '',
-          score: 0
-        },
-        age: {
-          text: '',
-          score: 0
-        },
-        koreanAbility: {
-          text: '',
-          score: 0
-        },
-        pediodic: {
-          text: '',
-          score: 0
-        },
-        domesticAsset: {
-          text: '',
-          score: 0
-        },
-        rootIndustry: {
-          text: '',
-          score: 0
-        },
-        manufactoringAndConstruction: {
-          text: '',
-          score: 0
-        },
-        domesticEducation: {
-          text: '',
-          score: 0
-        },
-        domesticTraining: {
-          text: '',
-          score: 0
-        },
-        domesticStudy: {
-          text: '',
-          score: 0
-        },
-        departmentRecommendation: {
-          text: '',
-          score: 0
-        },
-        ruralExperience: {
-          text: '',
-          score: 0
-        },
-        socialContribution: {
-          text: '',
-          score: 0
-        },
-        socialVolunteer: {
-          text: '',
-          score: 0
-        },
-        taxPayment: {
-          text: '',
-          score: 0
-        },
-        immigrationLawViolation: {
-          text: '',
-          score: 0
-        },
-        otherDomesticLawViolation: {
-          text: '',
-          score: 0
-        }
+        annualIncome: createAnswerObj(),
+        licence: createAnswerObj(),
+        skillVerification: createAnswerObj(),
+        education: createAnswerObj(),
+        age: createAnswerObj(),
+        koreanAbility: createAnswerObj(),
+        pediodic: createAnswerObj(),
+        domesticAsset: createAnswerObj(),
+        rootIndustry: createAnswerObj(),
+        manufactoringAndConstruction: createAnswerObj(),
+        domesticEducation: createAnswerObj(),
+        domesticTraining: createAnswerObj(),
+        domesticStudy: createAnswerObj(),
+        departmentRecommendation: createAnswerObj(),
+        ruralExperience: createAnswerObj(),
+        socialContribution: createAnswerObj(),
+        socialVolunteer: createAnswerObj(),
+        taxPayment: createAnswerObj(),
+        immigrationLawViolation: createAnswerObj(),
+        otherDomesticLawViolation: createAnswerObj()
       }
     }
   },
