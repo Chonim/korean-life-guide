@@ -1,5 +1,5 @@
 <template>
-  <div class="visa-temp-container">
+  <div class="excel visa-temp-container">
     <!-- title -->
     <table>
       <thead>
@@ -475,6 +475,8 @@
 </template>
 
 <script>
+import '@/assets/styles/excel.scss'
+
 import SelectOption from '@/components/elements/SelectOption'
 import researchData from '@/components/data/research-data'
 
@@ -588,64 +590,5 @@ export default {
 
 <style lang="scss" scoped>
 .visa-temp-container {
-  width: 800px;
-  .bt {
-    border-top: 1px solid #000;
-  }
-  .bb {
-    border-bottom: 1px solid #000;
-  }
-  .br {
-    border-right: 1px solid #000;
-  }
-  .bl {
-    border-left: 1px solid #000;
-  }
-  .ba {
-    border: 1px solid #000;
-  }
-  .gbg {
-    background-color: #d9d9d9;
-  }
-  .rbg {
-    background-color: #e6b8af;
-  }
-  .ar {
-    text-align: right;
-  }
-  table {
-    min-width: 100vw;
-    text-align: left;
-    font-size: 13px;
-    color: #000;
-    width: auto;
-    border-collapse: collapse;
-    thead {
-      tr {
-        height: 1px;
-        th {
-          width: 100px;
-          left: -1px;
-        }
-      }
-    }
-    tbody {
-      tr {
-        height: 20px;
-        td {
-          max-width: 102px;
-          overflow: hidden;
-          left: -1px;
-          padding: 2px;
-        }
-        .long-col {
-          min-width: 185px;
-        }
-        .ordinary-col {
-          max-width: 102px;
-        }
-      }
-    }
-  }
 }
 </style>
