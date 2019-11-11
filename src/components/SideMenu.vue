@@ -1,7 +1,7 @@
 <template>
   <div class="side-menu-wrapper">
     <div id="mySidenav" class="sidenav">
-      <a href="#" class="closebtn" @click="closeNav()">&times;</a>
+      <div class="closebtn" @click="closeNav()">&times;</div>
       <ul>
         <li
           v-for="menu in menus"
@@ -156,7 +156,6 @@ export default {
     margin-top: 8px;
     margin-left: 20px;
     font-size: 30px;
-    cursor: pointer;
   }
 }
 
