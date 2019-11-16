@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="showTable"
-    class="excel visa-f-2-container"
-  >
+  <div class="excel visa-f-2-container">
     <table>
       <thead>
         <tr>
@@ -398,7 +395,7 @@
 import '@/assets/styles/excel.scss'
 
 import researchData from '@/components/data/visa-f2'
-import { createAnswerObj } from '@/utils/visaHelpers'
+import { createSelectedValues } from '@/utils/visaHelpers'
 
 export default {
   name: 'VisaF2',
@@ -409,15 +406,8 @@ export default {
   data () {
     return {
       researchData,
-      showTable: false,
-      selectedValues: {}
+      selectedValues: createSelectedValues(researchData)
     }
-  },
-  mounted () {
-    Object.keys(this.researchData).forEach((key) => {
-      this.selectedValues[key] = createAnswerObj()
-    })
-    this.showTable = true
   },
   computed: {
     totalScore () {

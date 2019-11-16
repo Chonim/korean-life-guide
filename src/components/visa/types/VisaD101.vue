@@ -1,6 +1,5 @@
 <template>
   <div class="excel visa-d-10-1-container">
-    {{ $_excelMixin_selectedValues }}
     <table>
       <thead>
         <tr>
