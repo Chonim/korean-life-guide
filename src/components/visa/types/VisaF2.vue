@@ -19,7 +19,7 @@
             개요
           </td>
         </tr>
-        <tr class="ba dgbg tac fwb">
+        <tr class="ba dgbg tac fwb overview">
           <td rowspan="2" class="ba">
             구분
           </td>
@@ -111,7 +111,10 @@
             공통요건
           </td>
           <td colspan="3" class="ba tac gbg fwb">
-            연령*
+            연령
+            <tool-tip
+              toop-tip-content="∙ 여권상 생년월일 (평가일 기준)"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -120,7 +123,10 @@
         </tr>
         <tr>
           <td colspan="3" class="ba tac gbg fwb">
-            연령*
+            학력
+            <tool-tip
+              :toop-tip-content="'∙ 학위증 또는 졸업증명서 (고등학교졸업자만 해당) \n A : 인문계/B : 이공계 또는 2개 이상의 인문계 학위'"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -129,7 +135,10 @@
         </tr>
         <tr>
           <td colspan="3" class="ba tac gbg fwb">
-            한국어*
+            한국어
+            <tool-tip
+              :toop-tip-content="'∙ 국립국제교육원장 발급 한국어능력시험(TOPIK) 성적표상의 급수 \n 또는 사회통합프로그램 교육확인서 상의 수료단계(1~5단계)'"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -138,7 +147,10 @@
         </tr>
         <tr>
           <td colspan="3" class="ba tac gbg fwb">
-            연간소득(원)*
+            연간소득(원)
+            <tool-tip
+              :toop-tip-content="'∙소속 근무처에서 원본 확인하여 제출한 근로소득원천징수영수증사본 상의 최근 1년간의 명목상 총소득'"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -150,7 +162,10 @@
             가점
           </td>
           <td colspan="3" class="ba tac gbg fwb">
-            사회통합*
+            사회통합
+            <tool-tip
+              :toop-tip-content="' ∙ ‘사회통합프로그램 운영 지침’에 따라 관할 출입국관리사무소장이 발급한 사회통합프로그램 이수증 \n (자세한 사항은 사회통합정보망 www.socinet.go.kr 참조)'"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -159,7 +174,10 @@
         </tr>
         <tr>
           <td colspan="3" class="ba tac gbg fwb">
-            연간 소득세 납세실적(원)*
+            연간 소득세 납세실적(원)
+            <tool-tip
+              :toop-tip-content="'∙ 국세청 발급 전년도 소득세 납세실적 증명서'"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -168,7 +186,10 @@
         </tr>
         <tr>
           <td colspan="3" class="ba tac gbg fwb">
-            한국 유학 경험*
+            한국 유학 경험
+            <tool-tip
+              :toop-tip-content="'∙ 학위증 또는 수료증(한국어연수만 해당), 출입국관리정보시스템, 유학생정보시스템'"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -177,7 +198,10 @@
         </tr>
         <tr>
           <td colspan="3" class="ba tac gbg fwb">
-            국내 사회봉사활동*
+            국내 사회봉사활동
+            <tool-tip
+              :toop-tip-content="'∙ 해당 공공기관, 사회단체 등에서 발급한 사회봉사활동증명서 \n (최근 3년간의 활동내역을 합산하고 연간 최소 6회 총 50시간 이상 활동 시 인정)'"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -186,7 +210,10 @@
         </tr>
         <tr>
           <td colspan="3" class="ba tac gbg fwb">
-            해외전문취업경력*
+            해외전문취업경력
+            <tool-tip
+              :toop-tip-content="'∙ 해당 분야의 해외 공공기관․단체․업체 등의 대표자가 발급한 경력증명서 \n  (정규직원으로 재직한 기간만 인정)'"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -198,7 +225,10 @@
             감점
           </td>
           <td colspan="3" class="ba tac gbg fwb">
-            신청인 벌금(원)*
+            신청인 벌금(원)
+            <tool-tip
+              :toop-tip-content="'∙ 2회 \'또는\' 총 300만 원 이상의 벌금'"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -207,7 +237,10 @@
         </tr>
         <tr>
           <td colspan="3" class="ba tac gbg fwb">
-            동반가족/피초청인벌금*
+            동반가족/피초청인벌금
+            <tool-tip
+              :toop-tip-content="'∙ 2회 \'또는\' 총 300만 원 이상의 벌금'"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -216,7 +249,10 @@
         </tr>
         <tr>
           <td colspan="3" class="ba tac gbg fwb">
-            불법체류*
+            불법체류
+            <tool-tip
+              :toop-tip-content="'∙ 동반가족이나 피초청자 중 현 불법체류자 또는 최근 2년 이내 3개월 이상 불법체류 후 출국자'"
+            />
           </td>
           <td colspan="2" class="ba"></td>
           <td class="ba"></td>
@@ -254,7 +290,10 @@
 import '@/assets/styles/excel.scss'
 
 export default {
-  name: 'VisaF2'
+  name: 'VisaF2',
+  components: {
+    ToolTip: () => import('@/components/elements/ToolTip')
+  }
 }
 </script>
 
@@ -262,7 +301,7 @@ export default {
 .visa-f-2-container {
   > table {
     width: 555px;
-    td > span {
+    .overview > td > span {
       color: blue;
     }
   }

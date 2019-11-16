@@ -3,6 +3,10 @@
   max-width: 100vw;
   overflow-x: scroll;
 
+  select {
+    max-width: 120px;
+  }
+
   // border top
   .bt {
     border-top: 1px solid #000;
@@ -92,7 +96,7 @@
 
         td {
           max-width: 102px;
-          overflow: hidden;
+          // overflow: hidden;
           left: -1px;
           padding: 2px;
         }
