@@ -477,7 +477,6 @@
 <script>
 import '@/assets/styles/excel.scss'
 
-import SelectOption from '@/components/elements/SelectOption'
 import researchData from '@/components/data/visa-e74'
 import { createAnswerObj } from '@/utils/visaHelpers'
 

@@ -1,5 +1,8 @@
 <template>
-  <div class="excel visa-f-2-container">
+  <div
+    v-if="showTable"
+    class="excel visa-f-2-container"
+  >
     <table>
       <thead>
         <tr>
@@ -71,7 +74,11 @@
           <td colspan="2" class="ba" />
           <td class="ba gbg">기존비자*</td>
           <td colspan="3" class="ba">
-            <!--  -->
+            <select-option
+              :option-list="researchData.prevVisa"
+              option-name="prevVisa"
+              @change="handleSelect('prevVisa', $event)"
+            />
           </td>
           <td class="ba gbg">등록번호</td>
           <td class="ba" />
@@ -116,9 +123,17 @@
               toop-tip-content="∙ 여권상 생년월일 (평가일 기준)"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.ages"
+              option-name="ages"
+              @change="handleSelect('ages', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.ages.score }}
+          </td>
+          <td class="ba">25</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -128,9 +143,17 @@
               :toop-tip-content="'∙ 학위증 또는 졸업증명서 (고등학교졸업자만 해당) \n A : 인문계/B : 이공계 또는 2개 이상의 인문계 학위'"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.degrees"
+              option-name="degrees"
+              @change="handleSelect('degrees', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.degrees.score }}
+          </td>
+          <td class="ba">35</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -140,9 +163,17 @@
               :toop-tip-content="'∙ 국립국제교육원장 발급 한국어능력시험(TOPIK) 성적표상의 급수 \n 또는 사회통합프로그램 교육확인서 상의 수료단계(1~5단계)'"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.koreanLevels"
+              option-name="koreanLevels"
+              @change="handleSelect('koreanLevels', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.koreanLevels.score }}
+          </td>
+          <td class="ba">20</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -152,9 +183,17 @@
               :toop-tip-content="'∙소속 근무처에서 원본 확인하여 제출한 근로소득원천징수영수증사본 상의 최근 1년간의 명목상 총소득'"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.annualIncomes"
+              option-name="annualIncomes"
+              @change="handleSelect('annualIncomes', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.annualIncomes.score }}
+          </td>
+          <td class="ba">10</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -167,9 +206,17 @@
               :toop-tip-content="' ∙ ‘사회통합프로그램 운영 지침’에 따라 관할 출입국관리사무소장이 발급한 사회통합프로그램 이수증 \n (자세한 사항은 사회통합정보망 www.socinet.go.kr 참조)'"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.societyIntegrations"
+              option-name="societyIntegrations"
+              @change="handleSelect('societyIntegrations', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.societyIntegrations.score }}
+          </td>
+          <td class="ba">10</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -179,9 +226,17 @@
               :toop-tip-content="'∙ 국세청 발급 전년도 소득세 납세실적 증명서'"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.taxPayments"
+              option-name="taxPayments"
+              @change="handleSelect('taxPayments', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.taxPayments.score }}
+          </td>
+          <td class="ba">5</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -191,9 +246,17 @@
               :toop-tip-content="'∙ 학위증 또는 수료증(한국어연수만 해당), 출입국관리정보시스템, 유학생정보시스템'"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.koreaStudyExperiences"
+              option-name="koreaStudyExperiences"
+              @change="handleSelect('koreaStudyExperiences', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.koreaStudyExperiences.score }}
+          </td>
+          <td class="ba">10</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -203,9 +266,17 @@
               :toop-tip-content="'∙ 해당 공공기관, 사회단체 등에서 발급한 사회봉사활동증명서 \n (최근 3년간의 활동내역을 합산하고 연간 최소 6회 총 50시간 이상 활동 시 인정)'"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.domesticVolunteers"
+              option-name="domesticVolunteers"
+              @change="handleSelect('domesticVolunteers', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.domesticVolunteers.score }}
+          </td>
+          <td class="ba">5</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -215,9 +286,17 @@
               :toop-tip-content="'∙ 해당 분야의 해외 공공기관․단체․업체 등의 대표자가 발급한 경력증명서 \n  (정규직원으로 재직한 기간만 인정)'"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.overseaExperiences"
+              option-name="overseaExperiences"
+              @change="handleSelect('overseaExperiences', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.overseaExperiences.score }}
+          </td>
+          <td class="ba">5</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -230,9 +309,17 @@
               :toop-tip-content="'∙ 2회 \'또는\' 총 300만 원 이상의 벌금'"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.penalties"
+              option-name="penalties"
+              @change="handleSelect('penalties', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.ages.score }}
+          </td>
+          <td class="ba">0</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -242,9 +329,17 @@
               :toop-tip-content="'∙ 2회 \'또는\' 총 300만 원 이상의 벌금'"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.familyMembers"
+              option-name="familyMembers"
+              @change="handleSelect('familyMembers', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.familyMembers.score }}
+          </td>
+          <td class="ba">0</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -254,9 +349,17 @@
               :toop-tip-content="'∙ 동반가족이나 피초청자 중 현 불법체류자 또는 최근 2년 이내 3개월 이상 불법체류 후 출국자'"
             />
           </td>
-          <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td colspan="2" class="ba">
+            <select-option
+              :option-list="researchData.illegalStayings"
+              option-name="illegalStayings"
+              @change="handleSelect('illegalStayings', $event)"
+            />
+          </td>
+          <td class="ba">
+            {{ selectedValues.ages.score }}
+          </td>
+          <td class="ba">0</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -265,8 +368,13 @@
             합격권
           </td>
           <td colspan="2" class="ba"></td>
-          <td class="ba"></td>
-          <td class="ba"></td>
+          <td
+            class="ba total-score"
+            :class="totalScore >= 80 ? 'success' : 'fail'"
+          >
+            {{ totalScore }}
+          </td>
+          <td class="ba">125</td>
           <td class="ba"></td>
         </tr>
         <tr>
@@ -289,10 +397,50 @@
 <script>
 import '@/assets/styles/excel.scss'
 
+import researchData from '@/components/data/visa-f2'
+import { createAnswerObj } from '@/utils/visaHelpers'
+
 export default {
   name: 'VisaF2',
   components: {
+    SelectOption: () => import('@/components/elements/SelectOption'),
     ToolTip: () => import('@/components/elements/ToolTip')
+  },
+  data () {
+    return {
+      researchData,
+      showTable: false,
+      selectedValues: {}
+    }
+  },
+  mounted () {
+    Object.keys(this.researchData).forEach((key) => {
+      this.selectedValues[key] = createAnswerObj()
+    })
+    this.showTable = true
+  },
+  computed: {
+    totalScore () {
+      return Object
+        .keys(this.selectedValues)
+        .map(key => this.selectedValues[key].score)
+        .reduce((a, b) => a + b)
+    },
+    backgroundColor () {
+      if (this.totalScore < 80) {
+        return '#F4CCCC'
+      } else {
+        return '#D9EAD3'
+      }
+    }
+  },
+  methods: {
+    handleSelect (key, value) {
+      this.selectedValues = {
+        ...this.selectedValues,
+        [key]: value
+      }
+    }
   }
 }
 </script>

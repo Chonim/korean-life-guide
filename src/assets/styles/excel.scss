@@ -4,7 +4,7 @@
   overflow-x: scroll;
 
   select {
-    max-width: 120px;
+    width: 100%;
   }
 
   // border top
@@ -99,6 +99,18 @@
           // overflow: hidden;
           left: -1px;
           padding: 2px;
+        }
+
+        td.total-score {
+          transition: background-color .2s ease-in-out;
+        }
+
+        td.success {
+          background-color: #D9EAD3;
+        }
+
+        td.fail {
+          background-color: #F4CCCC;
         }
 
         .long-col {
