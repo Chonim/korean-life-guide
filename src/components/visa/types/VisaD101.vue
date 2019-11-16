@@ -1,5 +1,6 @@
 <template>
   <div class="excel visa-d-10-1-container">
+    {{ $_excelMixin_selectedValues }}
     <table>
       <thead>
         <tr>
@@ -376,8 +377,15 @@
 <script>
 import '@/assets/styles/excel.scss'
 
+import researchData from '@/components/data/visa-d101'
+
 export default {
-  name: 'VisaD101'
+  name: 'VisaD101',
+  data () {
+    return {
+      researchData
+    }
+  }
 }
 </script>
 
