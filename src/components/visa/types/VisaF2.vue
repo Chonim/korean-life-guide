@@ -426,10 +426,7 @@ export default {
   },
   methods: {
     handleSelect (key, value) {
-      this.selectedValues = {
-        ...this.selectedValues,
-        [key]: value
-      }
+      this.selectedValues = { ...this.selectedValues, [key]: value }
     }
   }
 }

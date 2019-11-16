@@ -132,12 +132,12 @@
           <td class="br bb ordinary-col">
             <select-option
               :option-list="researchData.annualIncomes"
-              option-name="annualIncome"
-              @change="handleSelect('annualIncome', $event)"
+              option-name="annualIncomes"
+              @change="handleSelect('annualIncomes', $event)"
             />
           </td>
           <td class="br bb rbg ar">
-            {{ selectedValues.annualIncome.score }}
+            {{ selectedValues.annualIncomes.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -149,12 +149,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.licences"
-              option-name="licence"
-              @change="handleSelect('licence', $event)"
+              option-name="licences"
+              @change="handleSelect('licences', $event)"
             />
           </td>
           <td class="br bb rbg ar">
-            {{ selectedValues.licence.score }}
+            {{ selectedValues.licences.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -166,12 +166,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.skillVerifications"
-              option-name="skillVerification"
-              @change="handleSelect('skillVerification', $event)"
+              option-name="skillVerifications"
+              @change="handleSelect('skillVerifications', $event)"
             />
           </td>
           <td class="br bb ar">
-            {{ selectedValues.skillVerification.score }}
+            {{ selectedValues.skillVerifications.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -183,12 +183,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.educations"
-              option-name="education"
-              @change="handleSelect('education', $event)"
+              option-name="educations"
+              @change="handleSelect('educations', $event)"
             />
           </td>
           <td class="br bb rbg ar">
-            {{ selectedValues.education.score }}
+            {{ selectedValues.educations.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -200,12 +200,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.ages"
-              option-name="age"
-              @change="handleSelect('age', $event)"
+              option-name="ages"
+              @change="handleSelect('ages', $event)"
             />
           </td>
           <td class="br bb rbg ar">
-            {{ selectedValues.age.score }}
+            {{ selectedValues.ages.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -217,12 +217,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.koreanAbilities"
-              option-name="koreanAbility"
-              @change="handleSelect('koreanAbility', $event)"
+              option-name="koreanAbilities"
+              @change="handleSelect('koreanAbilities', $event)"
             />
           </td>
           <td class="br bb rbg ar">
-            {{ selectedValues.koreanAbility.score }}
+            {{ selectedValues.koreanAbilities.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -236,12 +236,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.periodics"
-              option-name="pediodic"
-              @change="handleSelect('pediodic', $event)"
+              option-name="periodics"
+              @change="handleSelect('periodics', $event)"
             />
           </td>
           <td class="br bb rbg ar">
-            {{ selectedValues.pediodic.score }}
+            {{ selectedValues.periodics.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -253,12 +253,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.domesticAssets"
-              option-name="domesticAsset"
-              @change="handleSelect('domesticAsset', $event)"
+              option-name="domesticAssets"
+              @change="handleSelect('domesticAssets', $event)"
             />
           </td>
           <td class="br bb ar rbg">
-            {{ selectedValues.domesticAsset.score }}
+            {{ selectedValues.domesticAssets.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -271,12 +271,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.rootIndustries"
-              option-name="rootIndustry"
-              @change="handleSelect('rootIndustry', $event)"
+              option-name="rootIndustries"
+              @change="handleSelect('rootIndustries', $event)"
             />
           </td>
           <td class="br bb ar rbg">
-            {{ selectedValues.rootIndustry.score }}
+            {{ selectedValues.rootIndustries.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -288,12 +288,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.manufactoringAndConstructions"
-              option-name="manufactoringAndConstruction"
-              @change="handleSelect('manufactoringAndConstruction', $event)"
+              option-name="manufactoringAndConstructions"
+              @change="handleSelect('manufactoringAndConstructions', $event)"
             />
           </td>
           <td class="br bb ar">
-            {{ selectedValues.manufactoringAndConstruction.score }}
+            {{ selectedValues.manufactoringAndConstructions.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -306,12 +306,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.domesticEducations"
-              option-name="domesticEducation"
-              @change="handleSelect('domesticEducation', $event)"
+              option-name="domesticEducations"
+              @change="handleSelect('domesticEducations', $event)"
             />
           </td>
           <td class="br bb ar rbg">
-            {{ selectedValues.domesticEducation.score }}
+            {{ selectedValues.domesticEducations.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -323,12 +323,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.domesticTrainings"
-              option-name="domesticTraining"
-              @change="handleSelect('domesticTraining', $event)"
+              option-name="domesticTrainings"
+              @change="handleSelect('domesticTrainings', $event)"
             />
           </td>
           <td class="br bb ar rbg">
-            {{ selectedValues.domesticTraining.score }}
+            {{ selectedValues.domesticTrainings.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -341,12 +341,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.domesticStudies"
-              option-name="domesticStudy"
-              @change="handleSelect('domesticStudy', $event)"
+              option-name="domesticStudies"
+              @change="handleSelect('domesticStudies', $event)"
             />
           </td>
           <td class="br bb ar rbg">
-            {{ selectedValues.domesticStudy.score }}
+            {{ selectedValues.domesticStudies.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -358,12 +358,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.departmentRecommendations"
-              option-name="departmentRecommendation"
-              @change="handleSelect('departmentRecommendation', $event)"
+              option-name="departmentRecommendations"
+              @change="handleSelect('departmentRecommendations', $event)"
             />
           </td>
           <td class="br bb ar rbg">
-            {{ selectedValues.departmentRecommendation.score }}
+            {{ selectedValues.departmentRecommendations.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -375,12 +375,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.ruralExperiences"
-              option-name="ruralExperience"
-              @change="handleSelect('ruralExperience', $event)"
+              option-name="ruralExperiences"
+              @change="handleSelect('ruralExperiences', $event)"
             />
           </td>
           <td class="br bb ar rbg">
-            {{ selectedValues.ruralExperience.score }}
+            {{ selectedValues.ruralExperiences.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -392,12 +392,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.socialContributions"
-              option-name="socialContribution"
-              @change="handleSelect('socialContribution', $event)"
+              option-name="socialContributions"
+              @change="handleSelect('socialContributions', $event)"
             />
           </td>
           <td class="br bb ar rbg">
-            {{ selectedValues.socialContribution.score }}
+            {{ selectedValues.socialContributions.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -409,12 +409,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.taxPayments"
-              option-name="taxPayment"
-              @change="handleSelect('taxPayment', $event)"
+              option-name="taxPayments"
+              @change="handleSelect('taxPayments', $event)"
             />
           </td>
           <td class="br bb ar rbg">
-            {{ selectedValues.taxPayment.score }}
+            {{ selectedValues.taxPayments.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -427,12 +427,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.immigrationLawViolations"
-              option-name="immigrationLawViolation"
-              @change="handleSelect('immigrationLawViolation', $event)"
+              option-name="immigrationLawViolations"
+              @change="handleSelect('immigrationLawViolations', $event)"
             />
           </td>
           <td class="br bb ar rbg">
-            {{ selectedValues.immigrationLawViolation.score }}
+            {{ selectedValues.immigrationLawViolations.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -444,12 +444,12 @@
           <td class="br bb">
             <select-option
               :option-list="researchData.otherDomesticLawViolations"
-              option-name="otherDomesticLawViolation"
-              @change="handleSelect('otherDomesticLawViolation', $event)"
+              option-name="otherDomesticLawViolations"
+              @change="handleSelect('otherDomesticLawViolations', $event)"
             />
           </td>
           <td class="br bb ar rbg">
-            {{ selectedValues.otherDomesticLawViolation.score }}
+            {{ selectedValues.otherDomesticLawViolations.score }}
           </td>
           <td class="br bb"></td>
           <td class="br bb"></td>
@@ -478,7 +478,7 @@
 import '@/assets/styles/excel.scss'
 
 import researchData from '@/components/data/visa-e74'
-import { createAnswerObj } from '@/utils/visaHelpers'
+import { createSelectedValues } from '@/utils/visaHelpers'
 
 export default {
   name: 'VisaE74',
@@ -488,28 +488,7 @@ export default {
   data () {
     return {
       researchData,
-      selectedValues: {
-        annualIncome: createAnswerObj(),
-        licence: createAnswerObj(),
-        skillVerification: createAnswerObj(),
-        education: createAnswerObj(),
-        age: createAnswerObj(),
-        koreanAbility: createAnswerObj(),
-        pediodic: createAnswerObj(),
-        domesticAsset: createAnswerObj(),
-        rootIndustry: createAnswerObj(),
-        manufactoringAndConstruction: createAnswerObj(),
-        domesticEducation: createAnswerObj(),
-        domesticTraining: createAnswerObj(),
-        domesticStudy: createAnswerObj(),
-        departmentRecommendation: createAnswerObj(),
-        ruralExperience: createAnswerObj(),
-        socialContribution: createAnswerObj(),
-        socialVolunteer: createAnswerObj(),
-        taxPayment: createAnswerObj(),
-        immigrationLawViolation: createAnswerObj(),
-        otherDomesticLawViolation: createAnswerObj()
-      }
+      selectedValues: createSelectedValues(researchData)
     }
   },
   computed: {
@@ -522,7 +501,7 @@ export default {
   },
   methods: {
     handleSelect (key, value) {
-      this.selectedValues[key] = value
+      this.selectedValues = { ...this.selectedValues, [key]: value }
     }
   }
 }
