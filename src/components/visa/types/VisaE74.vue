@@ -100,10 +100,10 @@
             기본항목 합계 35점이상 총득점 72점 이상
           </td>
           <td dir="right" class="bb">
-            (불합격)
+            ({{ succeeded ? '합격' : '불합격' }})
           </td>
           <td colspan="3" class="br bb">
-            (기본항목 점수 미달, 총점 미달)
+            (기본항목 점수 {{ basicItemsScoreSucceeded ? '충족' : '미달' }}, 총점 {{ succeeded ? '충족' : '미달' }})
           </td>
         </tr>
 
@@ -463,7 +463,10 @@
           <td class="bt bl bb gbg"></td>
           <td class="bt bb br gbg" colspan="2">총점</td>
           <td class="bt bb br"></td>
-          <td class="bt bb br">
+          <td
+            class="bt bb br"
+            :class="succeeded ? 'success' : 'fail'"
+          >
             {{ totalScore }}
           </td>
           <td class="bt bb br" colspan="2"></td>
@@ -497,6 +500,24 @@ export default {
         .keys(this.selectedValues)
         .map(key => this.selectedValues[key].score)
         .reduce((a, b) => a + b)
+    },
+    basicItemsScoreSucceeded () {
+      const keys = [
+        'annualIncomes',
+        'licences',
+        'skillVerifications',
+        'educations',
+        'ages',
+        'koreanAbilities'
+      ]
+      let sum = 0
+      for (const key of keys) {
+        sum += this.selectedValues[key].score
+      }
+      return sum >= 35
+    },
+    succeeded () {
+      return this.basicItemsScoreSucceeded && this.totalScore >= 72
     }
   },
   methods: {
