@@ -23,13 +23,8 @@
 </template>
 
 <script>
-import CompassLogo from '@/components/Logo'
-
 export default {
   name: 'AboutUs',
-  components: {
-    CompassLogo
-  },
   data () {
     return {
       aboutUs: 'COMPASS는 우리 사회의 일원으로 살아가는 이주민의 한국생활에 도움이 되고자 성균관대 법학전문대학원 학생들이 관리하고 있는 생활정보 플랫폼입니다. 각종 문의, 제안, 수정요청은 <a href="mailto:compass.skku@gmail.com">compass.skku@gmail.com</a> 로 보내주시기 바랍니다.'

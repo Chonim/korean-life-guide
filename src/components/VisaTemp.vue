@@ -475,7 +475,6 @@
 </template>
 
 <script>
-import SelectOption from '@/components/elements/SelectOption'
 import researchData from '@/components/data/research-data'
 
 export default {

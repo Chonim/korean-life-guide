@@ -20,22 +20,17 @@
 import { mapGetters } from 'vuex'
 import Spinner from 'vue-simple-spinner'
 
-import api from '@/api'
-import config from '@/config'
-
 import db from '@/assets/data'
 
 import MapHeader from './Header'
-import WarningMessage from './WarningMessage'
 
-const { daum, google } = window
+const { daum } = window
 
 export default {
   name: 'Map',
   components: {
     Spinner,
-    MapHeader,
-    WarningMessage
+    MapHeader
   },
   data () {
     return {
@@ -81,8 +76,6 @@ export default {
       this.points = []
       this.setMarkers(null)
       this.markers = []
-      const checkFilter = (filter) => this.checkedFilters.some(checkedFilterEl => checkedFilterEl === filter)
-      let isImmigratsSupport = false
       this.isLoading = true
       this.searchPoints()
       this.setMarkers(this.map)
@@ -217,7 +210,7 @@ export default {
       })
     },
     setPosition (lat, lng, mode) {
-      const latLng = {lat, lng}
+      const latLng = { lat, lng }
       if (!this.centerMarker) {
         this.map.addObject(this.centerMarker)
       } else {
