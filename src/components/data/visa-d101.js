@@ -35,7 +35,7 @@ export const degrees = [{
   score: 30
 }]
 
-export const workExperiences = [{
+export const domesticWorkExperiences = [{
   text: '해당없음',
   score: 0
 }, {
@@ -47,6 +47,11 @@ export const workExperiences = [{
 }, {
   text: '국내 5년 이상',
   score: 15
+}]
+
+export const foreignWorkExperiences = [{
+  text: '해당없음',
+  score: 0
 }, {
   text: '국외 3-4년',
   score: 5
@@ -71,11 +76,8 @@ export const domesticStudies = [{
   text: '석사',
   score: 15
 }, {
-  text: '해당없음',
-  score: 20
-}, {
   text: '박사',
-  score: 30
+  score: 20
 }, {
   text: '전문학사(졸업 후 3년 이내)',
   score: 30
@@ -98,34 +100,34 @@ export const domesticTrainings = [{
   score: 3
 }, {
   text: '대학 연구생(D-2-5)19개월 이상',
-  score: 4
+  score: 5
 }, {
   text: '교환학생(D-2-6)12-18개월',
   score: 3
 }, {
   text: '교환학생(D-2-6)19개월 이상',
-  score: 0
+  score: 5
 }, {
   text: '국공립 기관 연수(D-4-2)12-18개월',
-  score: 0
+  score: 3
 }, {
   text: '국공립 기관 연수(D-4-2)19개월 이상',
-  score: 0
+  score: 5
 }, {
   text: '어학연수(D-4-1)12-18개월',
-  score: 0
+  score: 3
 }, {
   text: '어학연수(D-4-1)19개월 이상',
-  score: 0
+  score: 3
 }, {
   text: '우수사설 기관 연수(D-4-6)12-18개월',
-  score: 0
+  score: 3
 }, {
   text: '우수사설 기관 연수(D-4-6)19개월 이상',
-  score: 0
+  score: 5
 }, {
   text: '목록에서 2개 이상 충족',
-  score: 0
+  score: 5
 }]
 
 export const koreanLevels = [{
@@ -213,7 +215,8 @@ export const otherLawViolations = [{
 export default {
   ages,
   degrees,
-  workExperiences,
+  domesticWorkExperiences,
+  foreignWorkExperiences,
   domesticStudies,
   domesticTrainings,
   koreanLevels,

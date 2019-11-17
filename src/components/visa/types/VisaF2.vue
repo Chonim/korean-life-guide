@@ -415,13 +415,6 @@ export default {
         .keys(this.selectedValues)
         .map(key => this.selectedValues[key].score)
         .reduce((a, b) => a + b)
-    },
-    backgroundColor () {
-      if (this.totalScore < 80) {
-        return '#F4CCCC'
-      } else {
-        return '#D9EAD3'
-      }
     }
   },
   methods: {
