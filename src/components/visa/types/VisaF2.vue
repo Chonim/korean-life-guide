@@ -361,13 +361,13 @@
         </tr>
         <tr>
           <td class="ba tac dgbg fwb">결과</td>
-          <td colspan="3" class="ba tac fwb">
-            합격권
+          <td colspan="3" class="ba tac fwb" :class="succeeded ? 'success' : 'fail'">
+            {{ succeeded ? '합격권' : '불합격권' }}
           </td>
           <td colspan="2" class="ba"></td>
           <td
             class="ba total-score"
-            :class="totalScore >= 80 ? 'success' : 'fail'"
+            :class="succeeded ? 'success' : 'fail'"
           >
             {{ totalScore }}
           </td>
@@ -415,6 +415,9 @@ export default {
         .keys(this.selectedValues)
         .map(key => this.selectedValues[key].score)
         .reduce((a, b) => a + b)
+    },
+    succeeded () {
+      return this.totalScore >= 80
     }
   },
   methods: {

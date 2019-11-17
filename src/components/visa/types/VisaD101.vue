@@ -407,8 +407,8 @@
           <td class="ba tac dgbg">
             결과
           </td>
-          <td colspan="3" class="ba tac">
-            합격권
+          <td colspan="3" class="ba tac" :class="succeeded ? 'success' : 'fail'">
+            {{ succeeded ? '합격권' : '불합격권' }}
           </td>
           <td colspan="4" class="ba tac">
             <!--  -->
@@ -420,7 +420,7 @@
             {{ totalScore }}
           </td>
           <td class="ba tar">
-            <!--  -->
+            180
           </td>
           <td colspan="2" class="ba">
             <!--  -->
