@@ -29,12 +29,6 @@ export default [
     component: () => import('@/components/labor')
   },
   {
-    path: '/visa-temp',
-    name: 'VisaTemp',
-    component: () =>
-      import('@/components/VisaTemp')
-  },
-  {
     path: '/dormitory',
     name: 'DormitoryRelated',
     component: () =>
