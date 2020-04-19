@@ -209,16 +209,6 @@ export default {
         return marker
       })
     },
-    setPosition (lat, lng, mode) {
-      const latLng = { lat, lng }
-      if (!this.centerMarker) {
-        this.map.addObject(this.centerMarker)
-      } else {
-        this.centerMarker.setPosition(latLng)
-      }
-      this.map.setCenter(latLng)
-      this.geocodeLatLng(latLng)
-    },
     geocodeLatLng (latLng) {
       // aync await is not working for some reason
       const geocoder = new daum.maps.services.Geocoder()
