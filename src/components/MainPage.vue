@@ -56,7 +56,7 @@ export default {
           title: '한국어교육',
           value: 'edu'
         }, {
-          title: '출입국관리사무소',
+          title: '출입국외국인사무소',
           value: 'immigration_offices'
         }, {
           title: '고용복지플러스센터',
