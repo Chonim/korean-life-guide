@@ -276,6 +276,9 @@ export default {
       for (const marker of this.markers) {
         marker.setMap(this.map)
       }
+      const firstMarker = this.markers[0]
+      this.map.setCenter(firstMarker.getPosition())
+      daum.maps.event.trigger(firstMarker, 'click')
     },
     getCurrentPosition () {
       if (!navigator.geolocation) {
