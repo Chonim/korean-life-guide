@@ -5,9 +5,6 @@
       <img class="loaction-icon" src="../assets/icons/location-icon.svg" alt="location">
       <input class="search-input" id="pac-input" type="text" placeholder="위치 입력">
     </div>
-    <div class="button-wrapper">
-      <button @click="openNearbySearch()">가까운 기관 찾기</button>
-    </div>
     <div class="option-wrapper">
       <div
         class="option-item"
@@ -23,9 +20,14 @@
             :value="option.value"
             v-model="checkedOptions"
           />
-          {{option.title}}
+          {{translates[option.title]}}
         </label>
       </div>
+    </div>
+    <div class="button-wrapper">
+      <button @click="openNearbySearch()">
+        {{ translates['가까운 기관 찾기'] }}
+      </button>
     </div>
   </div>
 </template>
@@ -39,6 +41,7 @@ export default {
   name: 'MainPage',
   data () {
     return {
+      location: '',
       options: [
         {
           title: '무료진료',
@@ -63,14 +66,19 @@ export default {
       checkedOptions: []
     }
   },
+  computed: {
+    translates () {
+      return this.$store.getters['translates/translates']
+    }
+  },
   mounted () {
     this.initAutoComplete()
-    // this.checkedOptions = this.options.map(filter => filter.value)
   },
   methods: {
     ...mapActions('location', {
       setLat: 'SET_LAT',
       setLng: 'SET_LNG',
+      setAddress: 'SET_ADDRESS',
       setIsOptimalWaySearch: 'SET_IS_OPTIMAL_WAY_SEARCH',
       setCheckedFilters: 'SET_CHECKED_FILTERS'
     }),
@@ -89,18 +97,24 @@ export default {
         }
 
         const { location } = place.geometry
-        this.openPlaceSearch(location)
+        const fullAddress = place.address_components
+          .map((addressComponent) => {
+            return addressComponent.long_name
+          })
+          .reverse()
+          .join(' ')
+        this.setAddress(fullAddress)
+        this.location = [location.lat(), location.lng()]
       })
-    },
-    openPlaceSearch (location) {
-      this.goNext(location.lat(), location.lng())
     },
     openNearbySearch () {
       if (!this.checkedOptions.length) {
-        alert('기관을 1개 이상 선택해 주세요')
+        alert(this.translates['기관을 1개 이상 선택해 주세요'])
         return
       }
-      this.goNext(37.566338, 126.977956)
+      const [lat, lng] = this.location
+      this.goNext(lat, lng)
+      // this.goNext(37.566338, 126.977956)
     },
     goNext (lat, lng) {
       this.setLat(lat)
@@ -147,7 +161,7 @@ p {
     font-size: 16px;
     width: 90%;
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
   }
   .loaction-icon {
     position: absolute;
@@ -186,26 +200,25 @@ label {
 .button-wrapper {
   width: 80%;
   display: flex;
-  margin: 0 auto;
   justify-content: space-around;
-  margin-bottom: 24px;
-}
-button {
-  display: flex;
-  justify-content: center;
-  flex-grow: 1;
-  box-sizing: border-box;
-  padding: 12px 16px;
-  color: #ffffff;
-  border-radius: 4px;
-  font-size: 18px;
-  margin-right: 12px;
-  font-weight: 600;
-  background-color: #ffaa22;
-  border: none;
-}
-button:last-child {
-  margin-right: 0;
-  background-color: #35a4ee;
+  margin: 12px auto;
+  > button {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 18px;
+    margin-right: 12px;
+    font-weight: 600;
+    background-color: #ffaa22;
+    border: none;
+  }
+  > button:last-child {
+    margin-right: 0;
+    background-color: #35a4ee;
+  }
 }
 </style>

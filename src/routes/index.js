@@ -16,7 +16,29 @@ export default [
     path: '/about',
     name: 'AboutUs',
     component: () =>
-      import('@/components/About')
+      import('@/components/about')
+  },
+  {
+    path: '/visa/:visaType',
+    name: 'Visa',
+    component: () => import('@/components/visa')
+  },
+  {
+    path: '/labor/:laborType',
+    name: 'Labor',
+    component: () => import('@/components/labor')
+  },
+  {
+    path: '/dormitory',
+    name: 'DormitoryRelated',
+    component: () =>
+      import('@/components/DormitoryRelated')
+  },
+  {
+    path: '/life-guide',
+    name: 'LifeGuide',
+    component: () =>
+      import('@/components/life-guide')
   },
   {
     path: '/map',

@@ -2,6 +2,7 @@
   <div id="app">
     <template v-if="isNotInMap">
       <side-menu />
+      <main-header />
       <compass-logo />
     </template>
     <router-view />
@@ -10,12 +11,14 @@
 
 <script>
 import SideMenu from '@/components/SideMenu'
+import MainHeader from '@/components/MainHeader'
 import CompassLogo from '@/components/Logo'
 
 export default {
   name: 'App',
   components: {
     SideMenu,
+    MainHeader,
     CompassLogo
   },
   computed: {
