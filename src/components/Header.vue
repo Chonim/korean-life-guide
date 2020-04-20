@@ -14,9 +14,9 @@ export default {
   name: 'Header',
   props: {
     currentPosition: {
-      type: String
-    }
-  }
+      type: String,
+    },
+  },
 }
 </script>
 

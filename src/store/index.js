@@ -21,7 +21,7 @@ const debug = process.env.NODE_ENV !== 'production'
 export default new Vuex.Store({
   modules: {
     location,
-    translates
+    translates,
   },
-  plugins: debug ? [createLogger()] : []
+  plugins: debug ? [createLogger()] : [],
 })

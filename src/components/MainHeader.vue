@@ -26,8 +26,8 @@ export default {
   methods: {
     fetchTranslates (target) {
       this.$store.dispatch('translates/fetchTranslates', target)
-    }
-  }
+    },
+  },
 }
 </script>
 

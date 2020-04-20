@@ -10,9 +10,9 @@ export default {
   props: {
     toopTipContent: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 

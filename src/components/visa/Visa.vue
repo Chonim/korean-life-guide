@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'Visa'
+  name: 'Visa',
 }
 </script>
 
