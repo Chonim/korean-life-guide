@@ -16,25 +16,25 @@
             colspan="12"
             class="ba fwb dgbg tac"
           >
-            점수제 구직비자(D-10-1) 항목별 심사표
+            {{ translates['점수제 구직비자(D-10-1) 항목별 심사표'] }}
           </td>
         </tr>
         <tr>
           <td
             class="ba gbg"
           >
-            성명
+            {{ translates['성명'] }}
           </td>
           <td
             colspan="6"
             class="bb"
           >
-            홍길동
+            {{ translates['홍길동'] }}
           </td>
           <td
             class="ba gbg"
           >
-            등록번호
+            {{ translates['등록번호'] }}
           </td>
           <td
             colspan="4"
@@ -45,7 +45,7 @@
           <td
             class="ba gbg"
           >
-            회사명
+            {{ translates['회사명'] }}
           </td>
           <td
             colspan="6"
@@ -54,7 +54,7 @@
           <td
             class="ba gbg"
           >
-            국적
+            {{ translates['국적'] }}
           </td>
           <td
             colspan="4"
@@ -63,15 +63,15 @@
         </tr>
         <tr>
           <td rowspan="2" class="gbg tac ba">
-            기본요건
+            {{ translates['기본요건'] }}
           </td>
           <td colspan="11" class="ba">
-            학사(국내 전문학사 포함)이상 학위를 소지하고 체류자격 중 E-1~E-7에 해당하는 분야에 구직을 하려는 사람*
+            {{ translates['학사(국내 전문학사 포함)이상 학위를 소지하고 체류자격 중 E-1~E-7에 해당하는 분야에 구직을 하려는 사람*'] }}
           </td>
         </tr>
         <tr>
           <td colspan="11" class="ba">
-            총 180점 중 기본항목이 20점 이상이면서 총 득점이 60점 이상인 사람*
+            {{ translates['총 180점 중 기본항목이 20점 이상이면서 총 득점이 60점 이상인 사람*'] }}
           </td>
         </tr>
 
@@ -81,32 +81,32 @@
 
         <tr>
           <td colspan="12" class="pre">
-            *각 항목을 클릭하여 세부 기준을 확인하고 기입하세요.
+            {{ translates['*각 항목을 클릭하여 세부 기준을 확인하고 기입하세요.'] }}
           </td>
         </tr>
         <tr class="dgbg ba tac">
           <td colspan="4" class="fwb br">
-            항목
+            {{ translates['항목'] }}
           </td>
           <td colspan="4" class="br">
-            선택
+            {{ translates['선택'] }}
           </td>
           <td class="br">
-            점수
+            {{ translates['점수'] }}
           </td>
           <td class="br">
-            최고점
+            {{ translates['최고점'] }}
           </td>
           <td colspan="2">
-            관련링크
+            {{ translates['관련링크'] }}
           </td>
         </tr>
         <tr>
           <td rowspan="2" class="ba tac dgbg">
-            기본항목
+            {{ translates['기본항목'] }}
           </td>
           <td colspan="3" class="ba tac gbg">
-            연령(만)
+            {{ translates['연령(만)'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -127,7 +127,7 @@
         </tr>
         <tr>
           <td colspan="3" class="ba tac gbg">
-            최종학력*
+            {{ translates['최종학력*'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -148,13 +148,13 @@
         </tr>
         <tr>
           <td rowspan="5" class="ba dgbg tac">
-            선택항목
+            {{ translates['선택항목'] }}
           </td>
           <td rowspan="2" colspan="2" class="ba tac gbg">
-            취업경력*
+            {{ translates['취업경력*'] }}
           </td>
           <td class="ba gbg tac">
-            국내
+            {{ translates['국내'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -175,7 +175,7 @@
         </tr>
         <tr>
           <td class="ba gbg tac">
-            국외
+            {{ translates['국외'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -189,7 +189,7 @@
         </tr>
         <tr>
           <td colspan="3" class="ba gbg tac">
-            국내유학*
+            {{ translates['국내유학*'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -210,7 +210,7 @@
         </tr>
         <tr>
           <td colspan="3" class="ba gbg tac">
-            국내 연수경험*
+            {{ translates['국내 연수경험*'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -231,7 +231,7 @@
         </tr>
         <tr>
           <td colspan="3" class="ba gbg tac">
-            한국어 능력*
+            {{ translates['한국어 능력*'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -252,13 +252,14 @@
         </tr>
         <tr>
           <td rowspan="5" class="ba dgbg tac">
-            가점
+            {{ translates['가점'] }}
           </td>
           <td colspan="3" class="ba gbg tac">
-            관계 중앙행정기관장, 재외공관장 구직비자 발급 추천
+            {{ translates['관계 중앙행정기관장, 재외공관장 구직비자 발급 추천'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
+              is-number
               :option-list="researchData.officialRecommendations"
               option-name="officialRecommendations"
               @change="handleSelect('officialRecommendations', $event)"
@@ -276,7 +277,7 @@
         </tr>
         <tr>
           <td colspan="3" class="ba gbg tac">
-            세계 우수대학 졸업자*
+            {{ translates['세계 우수대학 졸업자*'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -297,7 +298,7 @@
         </tr>
         <tr>
           <td colspan="3" class="ba gbg tac">
-            글로벌기업근무 경력자*
+            {{ translates['글로벌기업근무 경력자*'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -318,7 +319,7 @@
         </tr>
         <tr>
           <td colspan="3" class="ba gbg tac">
-            이공계 학사 학위 소지자*
+            {{ translates['이공계 학사 학위 소지자*'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -339,7 +340,7 @@
         </tr>
         <tr>
           <td colspan="3" class="ba gbg tac">
-            고소득(5만달러) 전문직 종사 경력자*
+            {{ translates['고소득(5만달러) 전문직 종사 경력자*'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -360,10 +361,10 @@
         </tr>
         <tr>
           <td rowspan="2" class="ba tac dgbg">
-            감점
+            {{ translates['감점'] }}
           </td>
           <td colspan="3" class="ba tac gbg">
-            출입국관리법 위반*
+            {{ translates['출입국관리법 위반*'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -384,7 +385,7 @@
         </tr>
         <tr>
           <td colspan="3" class="ba tac gbg">
-            기타 국내법 위반*
+            {{ translates['기타 국내법 위반*'] }}
           </td>
           <td colspan="4" class="ba tac">
             <select-option
@@ -405,10 +406,10 @@
         </tr>
         <tr>
           <td class="ba tac dgbg">
-            결과
+            {{ translates['결과'] }}
           </td>
           <td colspan="3" class="ba tac" :class="succeeded ? 'success' : 'fail'">
-            {{ succeeded ? '합격권' : '불합격권' }}
+            {{ translates[succeeded ? '합격권' : '불합격권'] }}
           </td>
           <td colspan="4" class="ba tac">
             <!--  -->
@@ -440,15 +441,18 @@ import { createSelectedValues } from '@/utils/visaHelpers'
 export default {
   name: 'VisaD101',
   components: {
-    SelectOption: () => import('@/components/elements/SelectOption')
+    SelectOption: () => import('@/components/elements/SelectOption'),
   },
   data () {
     return {
       researchData,
-      selectedValues: createSelectedValues(researchData)
+      selectedValues: createSelectedValues(researchData),
     }
   },
   computed: {
+    translates () {
+      return this.$store.getters['translates/translates']
+    },
     totalScore () {
       const totalSum = Object
         .keys(this.selectedValues)
@@ -460,7 +464,7 @@ export default {
     succeeded () {
       const {
         ages,
-        degrees
+        degrees,
       } = this.selectedValues
       const hasMinimumDegree = degrees.score !== 0
       const meetMinimumRequirements = ages.score + degrees.score >= 20
@@ -470,18 +474,18 @@ export default {
     workExperienceScore () {
       const {
         domesticWorkExperiences,
-        foreignWorkExperiences
+        foreignWorkExperiences,
       } = this.selectedValues
       const sum = domesticWorkExperiences.score + foreignWorkExperiences.score
       const workExperienceScore = sum >= 15 ? 15 : sum
       return workExperienceScore
-    }
+    },
   },
   methods: {
     handleSelect (key, value) {
       this.selectedValues = { ...this.selectedValues, [key]: value }
-    }
-  }
+    },
+  },
 }
 </script>
 

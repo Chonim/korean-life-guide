@@ -45,31 +45,31 @@ export default {
       options: [
         {
           title: '무료진료',
-          value: 'medical'
+          value: 'medical',
         }, {
           title: '일반상담',
-          value: 'consulting'
+          value: 'consulting',
         }, {
           title: '법률상담',
-          value: 'law'
+          value: 'law',
         }, {
           title: '한국어교육',
-          value: 'edu'
+          value: 'edu',
         }, {
-          title: '출입국관리사무소',
-          value: 'immigration_offices'
+          title: '출입국외국인사무소',
+          value: 'immigration_offices',
         }, {
           title: '고용복지플러스센터',
-          value: 'recruit_center'
-        }
+          value: 'recruit_center',
+        },
       ],
-      checkedOptions: []
+      checkedOptions: [],
     }
   },
   computed: {
     translates () {
       return this.$store.getters['translates/translates']
-    }
+    },
   },
   mounted () {
     this.initAutoComplete()
@@ -80,7 +80,7 @@ export default {
       setLng: 'SET_LNG',
       setAddress: 'SET_ADDRESS',
       setIsOptimalWaySearch: 'SET_IS_OPTIMAL_WAY_SEARCH',
-      setCheckedFilters: 'SET_CHECKED_FILTERS'
+      setCheckedFilters: 'SET_CHECKED_FILTERS',
     }),
     initAutoComplete () {
       const input = document.getElementById('pac-input')
@@ -120,11 +120,11 @@ export default {
       this.setLat(lat)
       this.setLng(lng)
       this.$router.push('/map')
-    }
+    },
   },
   beforeDestroy () {
     this.setCheckedFilters(this.checkedOptions)
-  }
+  },
 }
 </script>
 
