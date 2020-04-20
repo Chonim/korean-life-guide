@@ -7,7 +7,7 @@
       :key="`${optionName}-${option.text}`"
       :value="getValue(option)"
     >
-      {{ option.text }}
+      {{ isNumber ? option.text : translates[option.text] }}
     </option>
   </select>
 </template>
@@ -16,14 +16,23 @@
 export default {
   name: 'SelectOption',
   props: {
+    isNumber: {
+      type: Boolean,
+      default: false,
+    },
     optionList: {
       type: Array,
-      required: true
+      required: true,
     },
     optionName: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
+  },
+  computed: {
+    translates () {
+      return this.$store.getters['translates/translates']
+    },
   },
   methods: {
     handleSelect (key, event) {
@@ -32,8 +41,8 @@ export default {
     },
     getValue (jsonValue) {
       return JSON.stringify(jsonValue)
-    }
-  }
+    },
+  },
 }
 </script>
 

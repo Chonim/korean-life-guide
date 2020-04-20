@@ -41,46 +41,46 @@ export default {
       isNavOpen: false,
       menus: [{
         pageName: '가까운 기관 찾기',
-        route: '/'
+        route: '/',
       }, {
         pageName: '비자',
         route: '',
         children: [{
           pageName: 'E-7-4',
-          route: '/visa/e74'
+          route: '/visa/e74',
         }, {
           pageName: 'D-10-1',
-          route: '/visa/d101'
+          route: '/visa/d101',
         }, {
           pageName: 'F-2',
-          route: '/visa/f2'
-        }]
+          route: '/visa/f2',
+        }],
       }, {
         pageName: '노동',
         route: '',
         children: [{
           pageName: '기숙사',
-          route: '/labor/dormitory'
+          route: '/labor/dormitory',
         }, {
           pageName: '사업장 변경',
-          route: '/labor/work-change'
+          route: '/labor/work-change',
         }, {
           pageName: '육아도우미 채용절차',
-          route: '/labor/nanny-hiring'
-        }]
+          route: '/labor/nanny-hiring',
+        }],
       }, {
         pageName: '외국인 생활안내',
-        route: '/life-guide'
+        route: '/life-guide',
       }, {
         pageName: '함께 하는 사람들',
-        route: '/about'
-      }]
+        route: '/about',
+      }],
     }
   },
   computed: {
     translates () {
       return this.$store.getters['translates/translates']
-    }
+    },
   },
   methods: {
     routerPush (route) {
@@ -97,8 +97,8 @@ export default {
     closeNav () {
       document.getElementById('mySidenav').style.left = '-250px'
       this.isNavOpen = false
-    }
-  }
+    },
+  },
 }
 </script>
 

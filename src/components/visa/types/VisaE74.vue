@@ -18,23 +18,23 @@
           <td
             colspan="3"
           >
-            점수제 숙련기능인력 전환(E-7-4) 항목별 심사표
+            {{ t['점수제 숙련기능인력 전환(E-7-4) 항목별 심사표'] }}
           </td>
         </tr>
 
         <!-- name and registration number -->
         <tr>
           <td class="ba gbg">
-            성명
+            {{ t['성명'] }}
           </td>
           <td
             colspan="3"
             class="bt bb"
           >
-            홍길동
+            {{ t['홍길동'] }}
           </td>
           <td class="ba gbg">
-            등록번호
+            {{ t['등록번호'] }}
           </td>
           <td
             colspan="3"
@@ -46,7 +46,7 @@
         <!-- company name and nationality -->
         <tr>
           <td class="ba gbg">
-            회사명
+            {{ t['회사명'] }}
           </td>
           <td
             colspan="3"
@@ -54,7 +54,7 @@
           >
           </td>
           <td class="ba gbg">
-            국적
+            {{ t['국적'] }}
           </td>
           <td
             colspan="3"
@@ -66,29 +66,29 @@
         <!-- basic requirement -->
         <tr>
           <td class="ba">
-            기본요건
+            {{ t['기본요건'] }}
           </td>
           <td
             colspan="6"
             class="bt bb br"
           >
-            최근 10년이내 5년이상 E-9 국내 정상 취업 여부 (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+            {{ t['최근 10년이내 5년이상 E-9 국내 정상 취업 여부'] }} (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
           </td>
         </tr>
 
         <!-- score requirement -->
         <tr>
           <td class="bl br">
-            점수요건
+            {{ t['점수요건'] }}
           </td>
           <td colspan="2">
-            숙련도 10점이상 총 득점 52점이상
+            {{ t['숙련도 10점이상 총 득점 52점이상'] }}
           </td>
           <td dir="right">
-            (불합격)
+            ({{ t['불합격'] }})
           </td>
           <td colspan="3" class="br">
-            (숙련도 충족, 총점 미달)
+            {{ t['(숙련도 충족, 총점 미달)'] }}
           </td>
         </tr>
 
@@ -97,13 +97,13 @@
           <td class="bl br bb">
           </td>
           <td colspan="2" class="bb">
-            기본항목 합계 35점이상 총득점 72점 이상
+            {{ t['기본항목 합계 35점이상 총득점 72점 이상'] }}
           </td>
           <td dir="right" class="bb">
-            ({{ succeeded ? '합격' : '불합격' }})
+            ({{ t[succeeded ? '합격' : '불합격'] }})
           </td>
           <td colspan="3" class="br bb">
-            (기본항목 점수 {{ basicItemsScoreSucceeded ? '충족' : '미달' }}, 총점 {{ succeeded ? '충족' : '미달' }})
+            ({{ t['기본항목 점수'] }} {{ t[basicItemsScoreSucceeded ? '충족' : '미달'] }}, {{ t['총점'] }} {{ t[succeeded ? '충족' : '미달'] }})
           </td>
         </tr>
 
@@ -113,22 +113,22 @@
         <!-- table content header -->
         <tr>
           <td class="bl bt bb br gbg" colspan="3">
-            구분
+            {{ t['구분'] }}
           </td>
           <td class="bt bb gbg"></td>
           <td class="bt bb br gbg">
-            평가점수
+            {{ t['평가점수'] }}
           </td>
           <td class="bt bb br gbg" colspan="2">
-            심사내용(입증서류 등)
+            {{ t['심사내용(입증서류 등)'] }}
           </td>
         </tr>
 
         <!-- basic items -->
         <tr>
-          <td class="bl br gbg">기본항목</td>
-          <td class="bl br gbg">산업기여가치</td>
-          <td class="bl br bb gbg long-col">연간소득</td>
+          <td class="bl br gbg">{{ t['기본항목'] }}</td>
+          <td class="bl br gbg">{{ t['산업기여가치'] }}</td>
+          <td class="bl br bb gbg long-col">{{ t['연간소득'] }}</td>
           <td class="br bb ordinary-col">
             <select-option
               :option-list="researchData.annualIncomes"
@@ -145,7 +145,7 @@
         <tr>
           <td class="bl br gbg"></td>
           <td class="bl br gbg"></td>
-          <td class="bl br bb gbg">자격증소지</td>
+          <td class="bl br bb gbg">{{ t['자격증소지'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.licences"
@@ -162,7 +162,7 @@
         <tr>
           <td class="bl br gbg"></td>
           <td class="bl br gbg"></td>
-          <td class="bl br bb gbg">기량검증</td>
+          <td class="bl br bb gbg">{{ t['기량검증'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.skillVerifications"
@@ -178,8 +178,8 @@
         </tr>
         <tr>
           <td class="bl br gbg"></td>
-          <td class="bl br bt gbg">미래기여가치</td>
-          <td class="bl br bb gbg">학력</td>
+          <td class="bl br bt gbg">{{ t['미래기여가치'] }}</td>
+          <td class="bl br bb gbg">{{ t['학력'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.educations"
@@ -196,7 +196,7 @@
         <tr>
           <td class="bl br gbg"></td>
           <td class="bl br gbg"></td>
-          <td class="bl br bb gbg">연령</td>
+          <td class="bl br bb gbg">{{ t['연령'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.ages"
@@ -213,7 +213,7 @@
         <tr>
           <td class="bl br bb gbg"></td>
           <td class="bl br bb gbg"></td>
-          <td class="bl br bb gbg">한국어 능력</td>
+          <td class="bl br bb gbg">{{ t['한국어 능력'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.koreanAbilities"
@@ -230,9 +230,9 @@
 
         <!-- optinoal items -->
         <tr>
-          <td class="bl br gbg">선택항목</td>
-          <td class="br gbg">보유자산*</td>
-          <td class="bl br bb gbg">정기적금</td>
+          <td class="bl br gbg">{{ t['선택항목'] }}</td>
+          <td class="br gbg">{{ t['보유자산'] }}*</td>
+          <td class="bl br bb gbg">{{ t['정기적금'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.periodics"
@@ -249,7 +249,7 @@
         <tr>
           <td class="bl br gbg"></td>
           <td class="br bb gbg"></td>
-          <td class="bl br bb gbg">국내자산</td>
+          <td class="bl br bb gbg">{{ t['국내자산'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.domesticAssets"
@@ -266,8 +266,8 @@
 
         <tr>
           <td class="bl br gbg"></td>
-          <td class="br gbg">근무경력</td>
-          <td class="bl br bb gbg">뿌리산업분야/농축산어업 분야</td>
+          <td class="br gbg">{{ t['근무경력'] }}</td>
+          <td class="bl br bb gbg">{{ t['뿌리산업분야/농축산어업 분야'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.rootIndustries"
@@ -284,7 +284,7 @@
         <tr>
           <td class="bl br gbg"></td>
           <td class="br bb gbg"></td>
-          <td class="bl br bb gbg">일반제조업, 건설업 분야 등</td>
+          <td class="bl br bb gbg">{{ t['일반제조업, 건설업 분야 등'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.manufactoringAndConstructions"
@@ -301,8 +301,8 @@
 
         <tr>
           <td class="bl br gbg"></td>
-          <td class="br gbg">교육, 연수</td>
-          <td class="bl br bb gbg">국내 교육경험</td>
+          <td class="br gbg">{{ t['교육, 연수'] }}</td>
+          <td class="bl br bb gbg">{{ t['국내 교육경험'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.domesticEducations"
@@ -319,7 +319,7 @@
         <tr>
           <td class="bl br gbg"></td>
           <td class="br bb gbg"></td>
-          <td class="bl br bb gbg">국내 연수경험*</td>
+          <td class="bl br bb gbg">{{ t['국내 연수경험'] }}*</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.domesticTrainings"
@@ -336,8 +336,8 @@
 
         <tr>
           <td class="bl br gbg"></td>
-          <td class="br gbg">가점</td>
-          <td class="bl br bb gbg">국내유학경험</td>
+          <td class="br gbg">{{ t['가점'] }}</td>
+          <td class="bl br bb gbg">{{ t['국내유학경험'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.domesticStudies"
@@ -354,9 +354,10 @@
         <tr>
           <td class="bl br gbg"></td>
           <td class="br gbg"></td>
-          <td class="bl br bb gbg">부처 추천</td>
+          <td class="bl br bb gbg">{{ t['부처 추천'] }}</td>
           <td class="br bb">
             <select-option
+              is-number
               :option-list="researchData.departmentRecommendations"
               option-name="departmentRecommendations"
               @change="handleSelect('departmentRecommendations', $event)"
@@ -371,7 +372,7 @@
         <tr>
           <td class="bl br gbg"></td>
           <td class="br gbg"></td>
-          <td class="bl br bb gbg">읍면지역 근무</td>
+          <td class="bl br bb gbg">{{ t['읍면지역 근무'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.ruralExperiences"
@@ -388,7 +389,7 @@
         <tr>
           <td class="bl br gbg"></td>
           <td class="br gbg"></td>
-          <td class="bl br bb gbg">사회공헌</td>
+          <td class="bl br bb gbg">{{ t['사회공헌'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.socialContributions"
@@ -405,9 +406,10 @@
         <tr>
           <td class="bl br gbg"></td>
           <td class="br bb gbg"></td>
-          <td class="bl br bb gbg">납세실적</td>
+          <td class="bl br bb gbg">{{ t['납세실적'] }}</td>
           <td class="br bb">
             <select-option
+              is-number
               :option-list="researchData.taxPayments"
               option-name="taxPayments"
               @change="handleSelect('taxPayments', $event)"
@@ -422,8 +424,8 @@
 
         <tr>
           <td class="bl br gbg"></td>
-          <td class="br gbg">감점</td>
-          <td class="bl br bb gbg">출입국관리법 위반</td>
+          <td class="br gbg">{{ t['감점'] }}</td>
+          <td class="bl br bb gbg">{{ t['출입국관리법 위반'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.immigrationLawViolations"
@@ -440,7 +442,7 @@
         <tr>
           <td class="bl bb br gbg"></td>
           <td class="br bb gbg"></td>
-          <td class="bl br bb gbg">기타 국내법 위반</td>
+          <td class="bl br bb gbg">{{ t['기타 국내법 위반'] }}</td>
           <td class="br bb">
             <select-option
               :option-list="researchData.otherDomesticLawViolations"
@@ -461,7 +463,7 @@
         <!-- total -->
         <tr>
           <td class="bt bl bb gbg"></td>
-          <td class="bt bb br gbg" colspan="2">총점</td>
+          <td class="bt bb br gbg" colspan="2">{{ t['총점'] }}</td>
           <td class="bt bb br"></td>
           <td
             class="bt bb br"
@@ -486,15 +488,18 @@ import { createSelectedValues } from '@/utils/visaHelpers'
 export default {
   name: 'VisaE74',
   components: {
-    SelectOption: () => import('@/components/elements/SelectOption')
+    SelectOption: () => import('@/components/elements/SelectOption'),
   },
   data () {
     return {
       researchData,
-      selectedValues: createSelectedValues(researchData)
+      selectedValues: createSelectedValues(researchData),
     }
   },
   computed: {
+    t () {
+      return this.$store.getters['translates/translates']
+    },
     totalScore () {
       return Object
         .keys(this.selectedValues)
@@ -508,7 +513,7 @@ export default {
         'skillVerifications',
         'educations',
         'ages',
-        'koreanAbilities'
+        'koreanAbilities',
       ]
       let sum = 0
       for (const key of keys) {
@@ -518,13 +523,13 @@ export default {
     },
     succeeded () {
       return this.basicItemsScoreSucceeded && this.totalScore >= 72
-    }
+    },
   },
   methods: {
     handleSelect (key, value) {
       this.selectedValues = { ...this.selectedValues, [key]: value }
-    }
-  }
+    },
+  },
 }
 </script>
 
