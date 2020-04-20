@@ -209,16 +209,6 @@ export default {
         return marker
       })
     },
-    setPosition (lat, lng, mode) {
-      const latLng = { lat, lng }
-      if (!this.centerMarker) {
-        this.map.addObject(this.centerMarker)
-      } else {
-        this.centerMarker.setPosition(latLng)
-      }
-      this.map.setCenter(latLng)
-      this.geocodeLatLng(latLng)
-    },
     geocodeLatLng (latLng) {
       // aync await is not working for some reason
       const geocoder = new daum.maps.services.Geocoder()
@@ -276,6 +266,9 @@ export default {
       for (const marker of this.markers) {
         marker.setMap(this.map)
       }
+      const firstMarker = this.markers[0]
+      this.map.setCenter(firstMarker.getPosition())
+      daum.maps.event.trigger(firstMarker, 'click')
     },
     getCurrentPosition () {
       if (!navigator.geolocation) {
