@@ -4,7 +4,7 @@ const setToiletBubbleContent = (toilet) => {
   const {
     addr,
     name,
-    open
+    open,
   } = toilet
 
   const childToilet = toilet.child_toilet
@@ -25,7 +25,7 @@ const setErBubbleContent = (er) => {
     addr,
     name,
     phone,
-    childCare
+    childCare,
   } = er
 
   const content = `
@@ -67,6 +67,6 @@ const setErBubbleContent = (er) => {
 
 export default {
   setToiletBubbleContent,
-  setErBubbleContent
+  setErBubbleContent,
   // getMarkerStyle
 }

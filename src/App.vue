@@ -19,13 +19,13 @@ export default {
   components: {
     SideMenu,
     MainHeader,
-    CompassLogo
+    CompassLogo,
   },
   computed: {
     isNotInMap () {
       return this.$route.name !== 'Map'
-    }
-  }
+    },
+  },
 }
 </script>
 

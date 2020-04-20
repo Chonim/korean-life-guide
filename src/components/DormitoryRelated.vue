@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'DormitoryRelated'
+  name: 'DormitoryRelated',
 }
 </script>
 

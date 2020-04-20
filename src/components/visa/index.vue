@@ -10,14 +10,14 @@ export default {
   components: {
     VisaE74: () => import('./types/VisaE74'),
     VisaD101: () => import('./types/VisaD101'),
-    VisaF2: () => import('./types/VisaF2')
+    VisaF2: () => import('./types/VisaF2'),
   },
   computed: {
     visaType () {
       const { visaType } = this.$route.params
       return `Visa${visaType.toUpperCase()}`
-    }
-  }
+    },
+  },
 }
 </script>
 

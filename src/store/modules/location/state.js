@@ -5,5 +5,5 @@ export default {
   // lng: 126.9678333,
   address: '',
   isOptimalWaySearch: false,
-  checkedFilters: []
+  checkedFilters: [],
 }

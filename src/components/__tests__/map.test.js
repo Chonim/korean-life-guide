@@ -6,8 +6,8 @@ const createWrapper = (checkedFilters) => {
     computed: {
       savedLat: () => 37.589116,
       savedLng: () => 127.01821459999996,
-      checkedFilters: () => checkedFilters
-    }
+      checkedFilters: () => checkedFilters,
+    },
   })
 }
 
@@ -37,7 +37,7 @@ describe('Map', () => {
     const results = [
       ...filteredImmigrantsSupport,
       ...await vm.searchPoints('recruit_center'),
-      ...await vm.searchPoints('immigration_offices')
+      ...await vm.searchPoints('immigration_offices'),
     ]
     const locationWithAddress = results.filter(location => location.addr)
     // expect(locationWithAddress.length).toBe(results.length)

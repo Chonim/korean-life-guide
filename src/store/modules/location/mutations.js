@@ -3,5 +3,5 @@ export default {
   SET_LNG: (state, lng) => { state.lng = lng },
   SET_ADDRESS: (state, address) => { state.address = address },
   SET_IS_OPTIMAL_WAY_SEARCH: (state, isOptimalWaySearch) => { state.isOptimalWaySearch = isOptimalWaySearch },
-  SET_CHECKED_FILTERS: (state, checkedFilters) => { state.checkedFilters = checkedFilters }
+  SET_CHECKED_FILTERS: (state, checkedFilters) => { state.checkedFilters = checkedFilters },
 }

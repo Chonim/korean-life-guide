@@ -30,7 +30,7 @@ export default {
   name: 'Map',
   components: {
     Spinner,
-    MapHeader
+    MapHeader,
   },
   data () {
     return {
@@ -52,8 +52,8 @@ export default {
       prevInfowindow: null,
       coords: {
         lat: 37,
-        lng: 127
-      }
+        lng: 127,
+      },
     }
   },
   async mounted () {
@@ -65,11 +65,11 @@ export default {
       savedLat: 'LAT',
       savedLng: 'LNG',
       savedAddress: 'ADDRESS',
-      checkedFilters: 'CHECKED_FILTERS'
+      checkedFilters: 'CHECKED_FILTERS',
     }),
     translates () {
       return this.$store.getters['translates/translates']
-    }
+    },
   },
   methods: {
     controlSearchPoints () {
@@ -157,10 +157,10 @@ export default {
           tel,
           time,
           lang,
-          url
+          url,
         } = point
         const marker = new daum.maps.Marker({
-          position: new daum.maps.LatLng(lat, lng)
+          position: new daum.maps.LatLng(lat, lng),
         })
         // add infowindow
         const { translates } = this
@@ -195,7 +195,7 @@ export default {
         const infowindow = new daum.maps.InfoWindow({
           content: iwContent,
           zIndex: 1,
-          removable: true
+          removable: true,
         })
         daum.maps.event.addListener(marker, 'click', () => {
           if (this.prevInfowindow) {
@@ -227,13 +227,13 @@ export default {
       const { savedLat, savedLng } = this
       this.geocodeLatLng({
         getLat: () => savedLat,
-        getLng: () => savedLng
+        getLng: () => savedLng,
       })
       const container = document.getElementById('mapContainer')
       const options = {
         center: new daum.maps.LatLng(savedLat, savedLng),
         // level: 3
-        level: 6
+        level: 6,
       }
       this.map = new daum.maps.Map(container, options)
 
@@ -294,8 +294,8 @@ export default {
             break
         }
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

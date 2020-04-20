@@ -5,5 +5,5 @@ import recruitCenter from './recruit_center.json'
 export default [
   ...immigrantsSupport,
   ...immigrationOffices,
-  ...recruitCenter
+  ...recruitCenter,
 ]
