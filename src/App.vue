@@ -3,6 +3,9 @@
     <template v-if="isNotInMap">
       <side-menu />
       <main-header />
+      <p class="covid-notification">
+        ▶ {{ translates['외국인을 위한 COVID-19 무료검사 안내'] }}
+      </p>
       <compass-logo />
     </template>
     <router-view />
@@ -22,6 +25,9 @@ export default {
     CompassLogo,
   },
   computed: {
+    translates () {
+      return this.$store.getters['translates/translates']
+    },
     isNotInMap () {
       return this.$route.name !== 'Map'
     },
@@ -48,5 +54,12 @@ body{
   color: #2c3e50;
   width: 100%;
   height: 100%;
+}
+</style>
+
+<style lang="scss" scoped>
+.covid-notification {
+  background-color: rgb(226, 233, 243);
+  padding: .25rem .5rem;
 }
 </style>
