@@ -3,7 +3,7 @@
     <template v-if="isNotInMap">
       <side-menu />
       <main-header />
-      <p class="covid-notification">
+      <p class="covid-notification" @click="openCovidLink()">
         ▶ {{ translates['외국인을 위한 COVID-19 무료검사 안내'] }}
       </p>
       <compass-logo />
@@ -30,6 +30,11 @@ export default {
     },
     isNotInMap () {
       return this.$route.name !== 'Map'
+    },
+  },
+  methods: {
+    openCovidLink () {
+      window.open('http://www.immigration.go.kr/immigration/1473/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGaW1taWdyYXRpb24lMkY0NyUyRjUyNDM4OCUyRmFydGNsVmlldy5kbyUzRg%3D%3D')
     },
   },
 }
@@ -61,5 +66,6 @@ body{
 .covid-notification {
   background-color: rgb(226, 233, 243);
   padding: .25rem .5rem;
+  cursor: pointer;
 }
 </style>
