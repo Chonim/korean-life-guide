@@ -74,6 +74,9 @@ ol {
 .margin-top {
   margin-top: 1rem;
 }
+.bold {
+  font-weight: bold;
+}
 </style>
 
 <style lang="scss" scoped>
