@@ -44,7 +44,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 * {
   box-sizing: border-box;
   margin: 0;
@@ -63,6 +63,16 @@ body{
   color: #2c3e50;
   width: 100%;
   height: 100%;
+}
+p, ol, ul {
+  margin-top: 1rem;
+  white-space: break-spaces;
+}
+ol {
+  padding-left: 1rem;
+}
+.margin-top {
+  margin-top: 1rem;
 }
 </style>
 
