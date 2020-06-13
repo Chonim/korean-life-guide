@@ -3,7 +3,11 @@
     <template v-if="isNotInMap">
       <side-menu />
       <main-header />
-      <p class="covid-notification" @click="openCovidLink()">
+      <p
+        v-show="$route.name === 'MainPage'"
+        class="covid-notification"
+        @click="openCovidLink()"
+      >
         ▶ {{ translates['외국인을 위한 COVID-19 무료검사 안내'] }}
       </p>
       <compass-logo />
