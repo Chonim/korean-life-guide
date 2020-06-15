@@ -126,6 +126,7 @@ export default {
       }
     }
     ul {
+      margin-top: 0;
       li:hover {
         background-color: #fff;
       }
