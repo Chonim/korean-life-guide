@@ -113,7 +113,7 @@ export default {
         if (checkedFilter === undefined || checkedFilter === 'immigration') {
           filteredResults = filteredResults.filter(({ addr }) => {
             const [sido, sigungu] = addr.split(' ')
-            return this.savedAddress.includes(`${sido} ${sigungu}`)
+            return this.savedAddress.includes(`${sido} ${sigungu}`) || this.savedAddress.includes(sido)
           })
         }
         resultsArr = [...resultsArr, ...filteredResults]
@@ -219,7 +219,6 @@ export default {
           console.error(error)
         } finally {
           this.newLat = latLng.getLat()
-          this.controlSearchPoints()
         }
       })
     },
@@ -266,7 +265,31 @@ export default {
       for (const marker of this.markers) {
         marker.setMap(this.map)
       }
-      const firstMarker = this.markers[0]
+      // get index from points
+      // eslint-disable-next-line no-unused-vars
+      const [_, sido, sigungu] = this.savedAddress.split(' ')
+
+      const getClosestMarker = () => {
+        const { points } = this
+        let closest = {
+          distance: Infinity,
+          index: 0,
+        }
+        for (let i = 0; i < points.length; i++) {
+          const point = points[i]
+          const distance = Math.pow(this.savedLat - point.lat, 2) + Math.pow(this.savedLng - point.lng, 2)
+          if (distance < closest.distance) {
+            closest = {
+              distance,
+              index: i,
+            }
+          }
+        }
+        return closest.index
+      }
+
+      const index = getClosestMarker()
+      const firstMarker = this.markers[index > -1 ? index : 0]
       this.map.setCenter(firstMarker.getPosition())
       daum.maps.event.trigger(firstMarker, 'click')
     },
